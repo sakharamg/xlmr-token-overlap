@@ -1,6 +1,11 @@
 name: run-mteb
 
 on:
+  push:
+    branches:
+      - mteb-multilingual-v2
+    paths:
+      - .github/workflows/run-mteb.yml
   workflow_dispatch:
 
 permissions:
