@@ -1,0 +1,610 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-20T04:26:22.233908+00:00",
+  "package": {
+    "name": "xlmr-token-overlap",
+    "version": "0.1.0"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "tokenizers": "0.22.1",
+    "pandas": "2.3.2"
+  },
+  "condition": "flores",
+  "language_order": [
+    "eng_Latn",
+    "deu_Latn",
+    "nld_Latn",
+    "swe_Latn",
+    "spa_Latn",
+    "fra_Latn",
+    "ita_Latn",
+    "por_Latn",
+    "ron_Latn",
+    "ind_Latn",
+    "zsm_Latn",
+    "tgl_Latn",
+    "pol_Latn",
+    "hun_Latn",
+    "tur_Latn",
+    "vie_Latn",
+    "arb_Arab",
+    "hin_Deva",
+    "guj_Gujr",
+    "rus_Cyrl",
+    "tha_Thai",
+    "zho_Hans",
+    "jpn_Jpan",
+    "kor_Hang"
+  ],
+  "tokenizer": {
+    "path": "data/tokenizers/xlm-roberta-base/tokenizer.json",
+    "sha256": "a898ea75433890f6610f4e470b8ebeb0c21dce5c8dd61f892eb09eb5919d2e2c",
+    "vocab_size_with_added_tokens": 250002,
+    "eligible_vocab_size": 249997,
+    "special_token_ids_excluded": [
+      0,
+      1,
+      2,
+      3,
+      250001
+    ],
+    "special_tokens_excluded": {
+      "0": "<s>",
+      "1": "<pad>",
+      "2": "</s>",
+      "3": "<unk>",
+      "250001": "<mask>"
+    },
+    "unknown_token_id": 3,
+    "external_normalization": "none",
+    "add_special_tokens": false,
+    "truncation": false,
+    "padding": false
+  },
+  "overlap_protocol": {
+    "analysis_vocabulary": "observed token IDs excluding all tokenizer special IDs",
+    "shared_token_count": "|V_i ∩ V_j|",
+    "type_iou_percent": "100 × |V_i ∩ V_j| / |V_i ∪ V_j|",
+    "frequency_overlap_percent": "100 × sum_{t in V_i ∩ V_j} c_i(t) / sum_{t in V_i} c_i(t)",
+    "frequency_direction": "matrix row/source i → column/target j"
+  },
+  "provenance": {
+    "dataset": "FLORES-200",
+    "condition": "flores",
+    "root": "data/flores200_dataset",
+    "splits": {
+      "dev": 997,
+      "devtest": 1012
+    },
+    "examples_per_language": 2009,
+    "parallel_alignment": "same split and line position across all languages",
+    "files": [
+      {
+        "language_code": "eng_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/eng_Latn.dev",
+        "sha256": "51a25f527fd81f428b6933d85a2f5e5544af92aa82042c7fbf0c4120327fba0a",
+        "examples": 997
+      },
+      {
+        "language_code": "deu_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/deu_Latn.dev",
+        "sha256": "12fac774c6f79d966774a1829648a6e107700662e9e7b9e31ad08541382b97aa",
+        "examples": 997
+      },
+      {
+        "language_code": "nld_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/nld_Latn.dev",
+        "sha256": "c1ba086285d30ea498dc01c1585b2dff336c9ddde07638863524858c379c485c",
+        "examples": 997
+      },
+      {
+        "language_code": "swe_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/swe_Latn.dev",
+        "sha256": "09cd17e9f68d14d424d517f818cf2821e5a32d5de14ef4b87276b1de6f344b5e",
+        "examples": 997
+      },
+      {
+        "language_code": "spa_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/spa_Latn.dev",
+        "sha256": "9a99ddc459542da2d980b21cc049e799172545938cb02a5e7c92ebd8234b2121",
+        "examples": 997
+      },
+      {
+        "language_code": "fra_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/fra_Latn.dev",
+        "sha256": "7c1e1043b9d8cc6cb6fd4388ce068060f36518fd3597357a381cfdbe8ce5ab00",
+        "examples": 997
+      },
+      {
+        "language_code": "ita_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/ita_Latn.dev",
+        "sha256": "192429adab7b6c43f75db8363151a91b7a21cdb83bafc2a1d5ee2f1dec7f81c6",
+        "examples": 997
+      },
+      {
+        "language_code": "por_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/por_Latn.dev",
+        "sha256": "cf748f9311660dbfc4dbaad9301c98865c6b6f72fba86ee496e7b00e3472575e",
+        "examples": 997
+      },
+      {
+        "language_code": "ron_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/ron_Latn.dev",
+        "sha256": "710eca0b694af56224299c81c947b42d3476286a41a766655cd390c1ab5f06ab",
+        "examples": 997
+      },
+      {
+        "language_code": "ind_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/ind_Latn.dev",
+        "sha256": "bf26d9a91c0ac76d2b9be2afe969d6e3af641ae947b930b830d4025c8961ce12",
+        "examples": 997
+      },
+      {
+        "language_code": "zsm_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/zsm_Latn.dev",
+        "sha256": "e59ed78411b6ed71c7a6dbea6cf987c8a36f959a3acd2e8fca49c0c192f31e0c",
+        "examples": 997
+      },
+      {
+        "language_code": "tgl_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/tgl_Latn.dev",
+        "sha256": "10124f352b8293c57fc013e8e49dc70794e569dd8f6af3b4ea7feeb16bb62b66",
+        "examples": 997
+      },
+      {
+        "language_code": "pol_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/pol_Latn.dev",
+        "sha256": "1689a0f8e778bae6fbf87ead221643975f0255c74f01a325dd06b0b0934cc962",
+        "examples": 997
+      },
+      {
+        "language_code": "hun_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/hun_Latn.dev",
+        "sha256": "28a5fa7798d1e9d4309e98ccf2fd3f82e7a12258759d12b479ae65947da2259f",
+        "examples": 997
+      },
+      {
+        "language_code": "tur_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/tur_Latn.dev",
+        "sha256": "0e08ae46ed14e71d8a3257c174565427e335c0ce3a33135e6e7506bb47f9d068",
+        "examples": 997
+      },
+      {
+        "language_code": "vie_Latn",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/vie_Latn.dev",
+        "sha256": "40a52e72054d03906de8231fd6f4de3d26cf0a19c4b2b525545128cfbfea7e2a",
+        "examples": 997
+      },
+      {
+        "language_code": "arb_Arab",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/arb_Arab.dev",
+        "sha256": "abf6f8ae0a4a93e0a6855b9a42bc5a772fa0c72d11baaa0ff1c8650bea42fd6c",
+        "examples": 997
+      },
+      {
+        "language_code": "hin_Deva",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/hin_Deva.dev",
+        "sha256": "639d0f659eb74c98bcb82d0946495a7041d894dcd2c20a10daac54da9a935e22",
+        "examples": 997
+      },
+      {
+        "language_code": "guj_Gujr",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/guj_Gujr.dev",
+        "sha256": "abc3811cd085e846fbd88d35d195cba36c9ad3363c7f57fa4d0ec9ff77a06d1a",
+        "examples": 997
+      },
+      {
+        "language_code": "rus_Cyrl",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/rus_Cyrl.dev",
+        "sha256": "3cad8426c208a2d5f5ccb1bbf5b5284129ffc30636cff4f4421f5f6f31d891a5",
+        "examples": 997
+      },
+      {
+        "language_code": "tha_Thai",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/tha_Thai.dev",
+        "sha256": "87430676335bd14f1a578c982695c61ce2179dfa6df8ec530c4762fbc6b8ad27",
+        "examples": 997
+      },
+      {
+        "language_code": "zho_Hans",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/zho_Hans.dev",
+        "sha256": "ae677073476a27d6d11db642df5c18b86ca5dfcbbeefeba7d99ec93b7f5bd177",
+        "examples": 997
+      },
+      {
+        "language_code": "jpn_Jpan",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/jpn_Jpan.dev",
+        "sha256": "17a422e2729f2eaecf7bf98aea70e3e72b8cac8acd72547d6ec1ada07ff92f4f",
+        "examples": 997
+      },
+      {
+        "language_code": "kor_Hang",
+        "split": "dev",
+        "path": "data/flores200_dataset/dev/kor_Hang.dev",
+        "sha256": "b309cfc95f11fcf5be423eb43c31cef9aef91c504ebd25d4ef6b11cb916c29c2",
+        "examples": 997
+      },
+      {
+        "language_code": "eng_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/eng_Latn.devtest",
+        "sha256": "612e9fbe87997617c0fa8fa8929654a4f49b728d96738112c2b86ef6a1d78d88",
+        "examples": 1012
+      },
+      {
+        "language_code": "deu_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/deu_Latn.devtest",
+        "sha256": "9a1bfa90d153fedb7ff80047f4a63d493998888eddb056e8a28e24592f26e5f2",
+        "examples": 1012
+      },
+      {
+        "language_code": "nld_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/nld_Latn.devtest",
+        "sha256": "2b22cf9a1c2c6c80b8bf733e6da93c7017297d7557b67f7799613b150bb5c07f",
+        "examples": 1012
+      },
+      {
+        "language_code": "swe_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/swe_Latn.devtest",
+        "sha256": "6807c7f0594e046a65758418e707db4dc9978033d24bda89c1744059c085bda0",
+        "examples": 1012
+      },
+      {
+        "language_code": "spa_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/spa_Latn.devtest",
+        "sha256": "40fcb836b49b0a461a14c00b8bce1f03113f8d2668132af424e74b2421d18ce9",
+        "examples": 1012
+      },
+      {
+        "language_code": "fra_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/fra_Latn.devtest",
+        "sha256": "82f5b000db419ef9254eea7857cce82943b361090942f17ed696e3dce2944f42",
+        "examples": 1012
+      },
+      {
+        "language_code": "ita_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/ita_Latn.devtest",
+        "sha256": "4166da51aba285736535916870142d7e9491494cee52b1db0808533399796a94",
+        "examples": 1012
+      },
+      {
+        "language_code": "por_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/por_Latn.devtest",
+        "sha256": "1a04351c9b8c99a1808bb5da9051c06ffd1d65a5fe7236e40a80568abdbc67e7",
+        "examples": 1012
+      },
+      {
+        "language_code": "ron_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/ron_Latn.devtest",
+        "sha256": "6f0b4240c136efdbb4543e09295e55c52e8ebc632b081ef9089ae2e3da2b89e6",
+        "examples": 1012
+      },
+      {
+        "language_code": "ind_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/ind_Latn.devtest",
+        "sha256": "af77d7b4eb6d45f667967dab331411ec417be3c0a133623d4f6c6b9b9d2a1118",
+        "examples": 1012
+      },
+      {
+        "language_code": "zsm_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/zsm_Latn.devtest",
+        "sha256": "5097555fef5af8163c9e96d9a7f28c658a0825e7f7c7670e8ec9d03af3681eec",
+        "examples": 1012
+      },
+      {
+        "language_code": "tgl_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/tgl_Latn.devtest",
+        "sha256": "d39bb635597b030096861139ec0fcad7f981f3e96b97b6d920e32a38acb2e4a4",
+        "examples": 1012
+      },
+      {
+        "language_code": "pol_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/pol_Latn.devtest",
+        "sha256": "d8b3fcf1d2a9678dc5c40e7d9886b89a36615275f3c131125192ffacc38a4e95",
+        "examples": 1012
+      },
+      {
+        "language_code": "hun_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/hun_Latn.devtest",
+        "sha256": "097f06c6946e36ee8d6ce6562f57f0ad088dd15596cf476724a089404d37d6a7",
+        "examples": 1012
+      },
+      {
+        "language_code": "tur_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/tur_Latn.devtest",
+        "sha256": "c0fe28cee25f77fbe8471bcd3c87d26c7a284f4f0420f4293c9ce004b9bef8f2",
+        "examples": 1012
+      },
+      {
+        "language_code": "vie_Latn",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/vie_Latn.devtest",
+        "sha256": "86b70984f053cae5f5d554bc9e9d00397773b8325bed7e12e7695c2e61897cb0",
+        "examples": 1012
+      },
+      {
+        "language_code": "arb_Arab",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/arb_Arab.devtest",
+        "sha256": "ff09a52e63884e9b5bb1083780b58f37d3d14acb0c58c6b1f1f2544ecea12ff8",
+        "examples": 1012
+      },
+      {
+        "language_code": "hin_Deva",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/hin_Deva.devtest",
+        "sha256": "5f5fd39acadca29fb044a0398e81869e48f37de979df086f2fad4a7d1fd2d015",
+        "examples": 1012
+      },
+      {
+        "language_code": "guj_Gujr",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/guj_Gujr.devtest",
+        "sha256": "ad44e4626fc491639e6739e5fba0ea8de5688f4fc40588ccb308d728c29e9f49",
+        "examples": 1012
+      },
+      {
+        "language_code": "rus_Cyrl",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/rus_Cyrl.devtest",
+        "sha256": "cdc706ed862d1d35d8d67cfda0b396766646885434958b18291aa760ff1bb59e",
+        "examples": 1012
+      },
+      {
+        "language_code": "tha_Thai",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/tha_Thai.devtest",
+        "sha256": "d9bed1bf963821eab20051b18674950f345b67b0d0925290eaa6836eb06e76ca",
+        "examples": 1012
+      },
+      {
+        "language_code": "zho_Hans",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/zho_Hans.devtest",
+        "sha256": "b30158b1b76f7cee08530d8127a9769f4512597c7eefe97ae1ccf630d5b6e7fd",
+        "examples": 1012
+      },
+      {
+        "language_code": "jpn_Jpan",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/jpn_Jpan.devtest",
+        "sha256": "36b8e392ae9404a20e8448c731d16d957ac1b94588d97fb691128ae706b63606",
+        "examples": 1012
+      },
+      {
+        "language_code": "kor_Hang",
+        "split": "devtest",
+        "path": "data/flores200_dataset/devtest/kor_Hang.devtest",
+        "sha256": "540972696230a56e888f1fbd04b7000135c436351f5e467f99ce67fdccd8df0f",
+        "examples": 1012
+      }
+    ]
+  },
+  "summary": {
+    "condition": "flores",
+    "languages": 24,
+    "examples_per_language_min": 2009,
+    "examples_per_language_max": 2009,
+    "analysis_tokens_min": 56004,
+    "analysis_tokens_max": 85423,
+    "unique_tokens_min": 2652,
+    "unique_tokens_max": 9625,
+    "unknown_tokens_total": 31,
+    "relation_summaries": {
+      "within Latin-script": {
+        "pairs": 120,
+        "mean_type_iou_percent": 22.25332575303252,
+        "median_type_iou_percent": 20.75361466508844,
+        "mean_shared_token_count": 2926.45
+      },
+      "Latin ↔ non-Latin": {
+        "pairs": 128,
+        "mean_type_iou_percent": 5.336505547642319,
+        "median_type_iou_percent": 4.160698853702767,
+        "mean_shared_token_count": 691.921875
+      },
+      "within non-Latin scripts": {
+        "pairs": 28,
+        "mean_type_iou_percent": 4.434404314840908,
+        "median_type_iou_percent": 3.5114394534936664,
+        "mean_shared_token_count": 481.85714285714283
+      }
+    },
+    "strongest_type_iou_pair": {
+      "language_i": "ind_Latn",
+      "language_j": "zsm_Latn",
+      "relation": "within Latin-script",
+      "type_iou_percent": 61.82345027424196,
+      "shared_token_count": 5974,
+      "frequency_i_to_j_percent": 88.72759088636526,
+      "frequency_j_to_i_percent": 89.68536396307519
+    },
+    "largest_frequency_asymmetry": {
+      "language_i": "eng_Latn",
+      "language_j": "tha_Thai",
+      "frequency_i_to_j_percent": 36.26961244468285,
+      "frequency_j_to_i_percent": 9.049479166666666,
+      "absolute_gap_points": 27.220133278016185
+    }
+  },
+  "validation": {
+    "status": "passed",
+    "checks_run": 28
+  },
+  "outputs": [
+    {
+      "path": "REPORT.md",
+      "bytes": 1449,
+      "sha256": "47f40d94ed54d4e7e730aca86d60986b03295cc973130d9bdeba57ef5bd20920"
+    },
+    {
+      "path": "frequency_overlap_percent.csv",
+      "bytes": 7274,
+      "sha256": "2fabfb80d8bc83e6e0e5731eff2515a26e5e14336e358c8aee7af79739c5169a"
+    },
+    {
+      "path": "frequency_overlap_percent.parquet",
+      "bytes": 20125,
+      "sha256": "f478a7f93e80a99b65ec1ea0e250d594383e4f8fe20d641cf3fbf9e974a8a78c"
+    },
+    {
+      "path": "group_pair_summary.csv",
+      "bytes": 844,
+      "sha256": "02d2d9c99ebc725c1d07ec761f4d5e1003755b80a322cbc6f3f05a6e9cd753ff"
+    },
+    {
+      "path": "heatmaps/frequency_overlap_directional.png",
+      "bytes": 438159,
+      "sha256": "a569dcc851e4ebe0b212e91a174ef8dee3e501dd0b7f0fe3b8a4290e1a95574f"
+    },
+    {
+      "path": "heatmaps/shared_token_count.png",
+      "bytes": 506848,
+      "sha256": "128e4b7a703e8faeaa7894d1918c5aaff78569564084211f6a1cb87d7b94780d"
+    },
+    {
+      "path": "heatmaps/type_iou_upper.png",
+      "bytes": 306713,
+      "sha256": "669c445f0ad15500464fb9bb80b29775b10cb92635ae638355728974d35bfa4f"
+    },
+    {
+      "path": "language_key.csv",
+      "bytes": 1349,
+      "sha256": "08503b4744561f7a62fb2ed4adfb6b2f96126bd321387eec936fe0275d695aa5"
+    },
+    {
+      "path": "language_stats.csv",
+      "bytes": 3170,
+      "sha256": "5f5ab191388a7ed6b9fb01455b0d62e1f03d312648e4bb7c428a5cb7b5bca141"
+    },
+    {
+      "path": "language_stats.parquet",
+      "bytes": 12695,
+      "sha256": "b4f6afb0c4d30ef653b3f74b75dcb304178768f8001e82c6c234f39bdda5d284"
+    },
+    {
+      "path": "pairwise_long.csv",
+      "bytes": 48345,
+      "sha256": "f4e32d37edd9d8cb2d55950f74eeb2a804168d6583e0d6d5b39d98a2e941faec"
+    },
+    {
+      "path": "pairwise_long.parquet",
+      "bytes": 23255,
+      "sha256": "6ad27efbd1dabd3fb5ab975d82df1866a679be8e401de52aa48bbda722e859ce"
+    },
+    {
+      "path": "script_relation_summary.csv",
+      "bytes": 251,
+      "sha256": "034f191512064d18783d4e268235501b51bff9b6a146cc0e35c0d6fb7df87d47"
+    },
+    {
+      "path": "shared_token_count.csv",
+      "bytes": 3076,
+      "sha256": "c5000ec9d7bc7f70d6550484ebc1904bdcab59609e8f31c5e3f57ead44a80ba5"
+    },
+    {
+      "path": "shared_token_count.parquet",
+      "bytes": 18026,
+      "sha256": "a614a250fc5dcb160c3ab856387254f4ccb287e58c3770ab64d3171c30769351"
+    },
+    {
+      "path": "split_stats.csv",
+      "bytes": 1928,
+      "sha256": "051ebbd57ce4c7b913bf682c45f55ae401618aa472fdb6fb5d7276e6d1b901e9"
+    },
+    {
+      "path": "split_stats.parquet",
+      "bytes": 4823,
+      "sha256": "061dd93ef550c84fde866b5344b19387c1e9ce9d44a80be2c6657bafed35b886"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1478,
+      "sha256": "f987d2d10dff51ea742ca9802cb48f7275fb3a6e032b6b7e22d69ed794ab4a67"
+    },
+    {
+      "path": "token_frequencies.csv",
+      "bytes": 7715924,
+      "sha256": "9742199736934288fab5b3f373301d85f7b1a6d1dd692b937b02597e6715ed17"
+    },
+    {
+      "path": "token_frequencies.parquet",
+      "bytes": 2183345,
+      "sha256": "454e7d2dac100c80813644b38ea41ec92ec57bf209ea47ffa84b06158a983eba"
+    },
+    {
+      "path": "top_frequency_asymmetries.csv",
+      "bytes": 1520,
+      "sha256": "5b4c532be5aff6ea186660b0e54942e7a8e5b0e186e1e9f41d74538b08de6c6c"
+    },
+    {
+      "path": "top_type_iou_pairs.csv",
+      "bytes": 2307,
+      "sha256": "693a2fbb5458dd2504c571a2c1191cbf5e10acf08d31ff7b07bd4aa580a9037f"
+    },
+    {
+      "path": "type_iou_percent.csv",
+      "bytes": 7086,
+      "sha256": "dc37fc257ed32f703ce9c3ad1311a3cc029f9e52044ad8fac17e8ee31677ce97"
+    },
+    {
+      "path": "type_iou_percent.parquet",
+      "bytes": 20045,
+      "sha256": "03ba4e00cc6fc6872df09d7e406938af447c8f5beb1855addf501c2973923eb0"
+    },
+    {
+      "path": "type_iou_percent_upper.csv",
+      "bytes": 4198,
+      "sha256": "2d63e10e3f1f7d3892092c4a0cfe8685a6cdf41d97d44fdc65fe0378e6d1a6ea"
+    },
+    {
+      "path": "type_iou_percent_upper.parquet",
+      "bytes": 17698,
+      "sha256": "7ce99f737185fc4d6c0c1bd2ad96aca7f642f65d6fefca3c6226b1f3f0de205a"
+    },
+    {
+      "path": "validation_report.json",
+      "bytes": 3055,
+      "sha256": "85b8657bd5e854fcd2ff20c033e379b762ef7b158269167d17ec07631c5eea98"
+    }
+  ]
+}

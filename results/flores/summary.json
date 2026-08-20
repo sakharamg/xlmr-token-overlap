@@ -1,0 +1,47 @@
+{
+  "condition": "flores",
+  "languages": 24,
+  "examples_per_language_min": 2009,
+  "examples_per_language_max": 2009,
+  "analysis_tokens_min": 56004,
+  "analysis_tokens_max": 85423,
+  "unique_tokens_min": 2652,
+  "unique_tokens_max": 9625,
+  "unknown_tokens_total": 31,
+  "relation_summaries": {
+    "within Latin-script": {
+      "pairs": 120,
+      "mean_type_iou_percent": 22.25332575303252,
+      "median_type_iou_percent": 20.75361466508844,
+      "mean_shared_token_count": 2926.45
+    },
+    "Latin ↔ non-Latin": {
+      "pairs": 128,
+      "mean_type_iou_percent": 5.336505547642319,
+      "median_type_iou_percent": 4.160698853702767,
+      "mean_shared_token_count": 691.921875
+    },
+    "within non-Latin scripts": {
+      "pairs": 28,
+      "mean_type_iou_percent": 4.434404314840908,
+      "median_type_iou_percent": 3.5114394534936664,
+      "mean_shared_token_count": 481.85714285714283
+    }
+  },
+  "strongest_type_iou_pair": {
+    "language_i": "ind_Latn",
+    "language_j": "zsm_Latn",
+    "relation": "within Latin-script",
+    "type_iou_percent": 61.82345027424196,
+    "shared_token_count": 5974,
+    "frequency_i_to_j_percent": 88.72759088636526,
+    "frequency_j_to_i_percent": 89.68536396307519
+  },
+  "largest_frequency_asymmetry": {
+    "language_i": "eng_Latn",
+    "language_j": "tha_Thai",
+    "frequency_i_to_j_percent": 36.26961244468285,
+    "frequency_j_to_i_percent": 9.049479166666666,
+    "absolute_gap_points": 27.220133278016185
+  }
+}

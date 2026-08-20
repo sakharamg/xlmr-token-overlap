@@ -1,0 +1,25 @@
+condition,language_code,language,label,script,family,visual_group,examples,encoded_token_count,analysis_token_count,unique_analysis_token_count,vocabulary_coverage_percent,special_token_count,control_token_count,unknown_token_count,unknown_rate_percent,mean_analysis_tokens_per_example
+flores,eng_Latn,English,EN,Latin,Germanic,Germanic Latin,2009,59656,59656,8292,3.31683980,0,0,0,0.00000000,29.69437531
+flores,deu_Latn,German,DE,Latin,Germanic,Germanic Latin,2009,69727,69727,8871,3.54844258,0,0,0,0.00000000,34.70731707
+flores,nld_Latn,Dutch,NL,Latin,Germanic,Germanic Latin,2009,68075,68075,8070,3.22803874,0,0,0,0.00000000,33.88501742
+flores,swe_Latn,Swedish,SV,Latin,Germanic,Germanic Latin,2009,63927,63927,8522,3.40884091,0,0,0,0.00000000,31.82030861
+flores,spa_Latn,Spanish,ES,Latin,Romance,Romance Latin,2009,71459,71459,8870,3.54804258,0,0,0,0.00000000,35.56943753
+flores,fra_Latn,French,FR,Latin,Romance,Romance Latin,2009,77352,77352,8072,3.22883875,0,0,0,0.00000000,38.50273768
+flores,ita_Latn,Italian,IT,Latin,Romance,Romance Latin,2009,70965,70965,8954,3.58164298,0,0,0,0.00000000,35.32354405
+flores,por_Latn,Portuguese,PT,Latin,Romance,Romance Latin,2009,66406,66406,8664,3.46564159,0,0,0,0.00000000,33.05425585
+flores,ron_Latn,Romanian,RO,Latin,Romance,Romance Latin,2009,74034,74034,8459,3.38364060,0,0,0,0.00000000,36.85116974
+flores,ind_Latn,Indonesian,ID,Latin,Austronesian,Austronesian Latin,2009,56004,56004,7948,3.17923815,0,0,0,0.00000000,27.87655550
+flores,zsm_Latn,Malay,MS,Latin,Austronesian,Austronesian Latin,2009,56764,56764,7689,3.07563691,0,0,0,0.00000000,28.25485316
+flores,tgl_Latn,Filipino/Tagalog,TL,Latin,Austronesian,Austronesian Latin,2009,85423,85423,7011,2.80443365,0,0,0,0.00000000,42.52015928
+flores,pol_Latn,Polish,PL,Latin,Slavic,Other Latin,2009,70891,70891,8898,3.55924271,0,0,0,0.00000000,35.28670981
+flores,hun_Latn,Hungarian,HU,Latin,Uralic,Other Latin,2009,70308,70308,8333,3.33324000,0,0,0,0.00000000,34.99651568
+flores,tur_Latn,Turkish,TR,Latin,Turkic,Other Latin,2009,61972,61972,8081,3.23243879,0,0,0,0.00000000,30.84718766
+flores,vie_Latn,Vietnamese,VI,Latin,Austroasiatic,Other Latin,2009,70314,70314,4877,1.95082341,0,0,0,0.00000000,34.99950224
+flores,arb_Arab,Arabic,AR,Arabic,Semitic,Other scripts,2009,70160,70160,6077,2.43082917,0,0,0,0.00000000,34.92284719
+flores,hin_Deva,Hindi,HI,Devanagari,Indo-Aryan,Other scripts,2009,74861,74861,4501,1.80042161,0,0,0,0.00000000,37.26281732
+flores,guj_Gujr,Gujarati,GU,Gujarati,Indo-Aryan,Other scripts,2009,84540,84540,2652,1.06081273,0,0,0,0.00000000,42.08063713
+flores,rus_Cyrl,Russian,RU,Cyrillic,Slavic,Other scripts,2009,70031,70031,9625,3.85004620,0,0,0,0.00000000,34.85863614
+flores,tha_Thai,Thai,TH,Thai,Kra-Dai,Other scripts,2009,64512,64512,4915,1.96602359,0,0,0,0.00000000,32.11149826
+flores,zho_Hans,Simplified Chinese,ZH,Han,Sinitic,Other scripts,2009,57887,57876,7703,3.08123697,11,0,11,0.01900254,28.80836237
+flores,jpn_Jpan,Japanese,JA,Japanese,Japonic,Other scripts,2009,66414,66412,6179,2.47162966,2,0,2,0.00301141,33.05724241
+flores,kor_Hang,Korean,KO,Hangul,Koreanic,Other scripts,2009,69124,69106,5174,2.06962484,18,0,18,0.02604016,34.39820806
