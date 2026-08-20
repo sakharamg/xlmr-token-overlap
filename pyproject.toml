@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xlmr-token-overlap"
+version = "0.1.0"
+description = "Reproducible cross-lingual XLM-R tokenizer-overlap analysis"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Sakharam Gawade"}]
+dependencies = [
+  "matplotlib>=3.8,<4",
+  "numpy>=1.26,<3",
+  "pandas>=2.1,<4",
+  "pyarrow>=16,<24",
+  "tokenizers==0.22.1",
+]
+
+[project.scripts]
+xlmr-token-overlap = "xlmr_token_overlap.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

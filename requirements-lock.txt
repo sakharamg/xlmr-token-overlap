@@ -1,0 +1,7 @@
+# Exact environment used for the checked-in FLORES run.
+matplotlib==3.10.5
+numpy==2.3.2
+pandas==2.3.2
+pyarrow==21.0.0
+tokenizers==0.22.1
+
