@@ -948,6 +948,18 @@ def _pair_vector(frame: pd.DataFrame, codes: Sequence[str]) -> pd.Series:
     return pd.Series(values, dtype=float)
 
 
+def _spearman_correlation(left: pd.Series, right: pd.Series) -> float:
+    """Return Spearman's rho without pandas' optional SciPy dependency."""
+
+    aligned = pd.concat(
+        [left.rename("left"), right.rename("right")], axis=1, join="inner"
+    ).dropna()
+    if len(aligned) < 2:
+        return float("nan")
+    ranks = aligned.rank(method="average")
+    return float(ranks["left"].corr(ranks["right"]))
+
+
 def _write_cross_pass(output_dir: Path, flores_dir: Path) -> None:
     flores = pd.read_csv(flores_dir / "type_iou_percent.csv", index_col=0)
     overall = pd.read_csv(output_dir / "overall" / "type_iou_percent.csv", index_col=0)
@@ -966,7 +978,9 @@ def _write_cross_pass(output_dir: Path, flores_dir: Path) -> None:
                 "condition": condition,
                 "languages": len(codes),
                 "pairs": len(condition_vector),
-                "spearman_vs_flores": condition_vector.corr(flores_vector, method="spearman"),
+                "spearman_vs_flores": _spearman_correlation(
+                    condition_vector, flores_vector
+                ),
                 "mean_absolute_difference_points": difference.abs().mean(),
                 "mean_signed_difference_points": difference.mean(),
             }
@@ -991,8 +1005,8 @@ def _write_cross_pass(output_dir: Path, flores_dir: Path) -> None:
     for left in names:
         for right in names:
             common = vectors[left].index.intersection(vectors[right].index)
-            correlations.loc[left, right] = vectors[left].loc[common].corr(
-                vectors[right].loc[common], method="spearman"
+            correlations.loc[left, right] = _spearman_correlation(
+                vectors[left].loc[common], vectors[right].loc[common]
             )
     correlations.index.name = "condition"
     correlations.to_csv(output_dir / "condition_spearman.csv", float_format="%.8f")
