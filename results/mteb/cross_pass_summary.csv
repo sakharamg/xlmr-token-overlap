@@ -1,0 +1,7 @@
+condition,languages,pairs,spearman_vs_flores,mean_absolute_difference_points,mean_signed_difference_points
+overall,24,276,0.94559324,6.32674948,-6.32674948
+sts,16,120,0.77963747,7.75202849,-7.74874180
+retrieval,24,276,0.93521725,7.10371846,-7.10371846
+classification,24,276,0.74870564,6.91367368,-6.88999405
+clustering,24,276,0.98199626,5.35554319,-5.35554319
+reranking,12,66,0.77985596,7.12367024,-7.03473485

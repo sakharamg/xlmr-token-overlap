@@ -1,0 +1,25 @@
+language_code,condition,language,label,script,family,visual_group,examples,encoded_token_count,analysis_token_count,unique_analysis_token_count,vocabulary_coverage_percent,special_token_count,control_token_count,unknown_token_count,unknown_rate_percent,mean_analysis_tokens_per_example,available
+eng_Latn,reranking,English,EN,Latin,Germanic,Germanic Latin,389,19996,19996,3497,1.39881679,0,0,0,0.00000000,51.40359897,True
+deu_Latn,reranking,German,DE,Latin,Germanic,Germanic Latin,809,19997,19996,5287,2.11482538,1,0,1,0.00500075,24.71693449,True
+nld_Latn,reranking,Dutch,NL,Latin,Germanic,Germanic Latin,817,19999,19999,4760,1.90402285,0,0,0,0.00000000,24.47858017,True
+swe_Latn,reranking,Swedish,SV,Latin,Germanic,Germanic Latin,846,19999,19999,5062,2.02482430,0,0,0,0.00000000,23.63947991,True
+spa_Latn,reranking,Spanish,ES,Latin,Romance,Romance Latin,0,0,0,0,,0,0,0,,,False
+fra_Latn,reranking,French,FR,Latin,Romance,Romance Latin,397,19998,19996,3330,1.33201598,2,0,2,0.01000100,50.36775819,True
+ita_Latn,reranking,Italian,IT,Latin,Romance,Romance Latin,841,19999,19998,5076,2.03042437,1,0,1,0.00500025,23.77883472,True
+por_Latn,reranking,Portuguese,PT,Latin,Romance,Romance Latin,807,20000,20000,4976,1.99042389,0,0,0,0.00000000,24.78314746,True
+ron_Latn,reranking,Romanian,RO,Latin,Romance,Romance Latin,890,19996,19996,4978,1.99122389,0,0,0,0.00000000,22.46741573,True
+ind_Latn,reranking,Indonesian,ID,Latin,Austronesian,Austronesian Latin,0,0,0,0,,0,0,0,,,False
+zsm_Latn,reranking,Malay,MS,Latin,Austronesian,Austronesian Latin,0,0,0,0,,0,0,0,,,False
+tgl_Latn,reranking,Filipino/Tagalog,TL,Latin,Austronesian,Austronesian Latin,0,0,0,0,,0,0,0,,,False
+pol_Latn,reranking,Polish,PL,Latin,Slavic,Other Latin,0,0,0,0,,0,0,0,,,False
+hun_Latn,reranking,Hungarian,HU,Latin,Uralic,Other Latin,0,0,0,0,,0,0,0,,,False
+tur_Latn,reranking,Turkish,TR,Latin,Turkic,Other Latin,0,0,0,0,,0,0,0,,,False
+vie_Latn,reranking,Vietnamese,VI,Latin,Austroasiatic,Other Latin,0,0,0,0,,0,0,0,,,False
+arb_Arab,reranking,Arabic,AR,Arabic,Semitic,Other scripts,0,0,0,0,,0,0,0,,,False
+hin_Deva,reranking,Hindi,HI,Devanagari,Indo-Aryan,Other scripts,758,19999,19999,3266,1.30641568,0,0,0,0.00000000,26.38390501,True
+guj_Gujr,reranking,Gujarati,GU,Gujarati,Indo-Aryan,Other scripts,0,0,0,0,,0,0,0,,,False
+rus_Cyrl,reranking,Russian,RU,Cyrillic,Slavic,Other scripts,848,20000,20000,4966,1.98642384,0,0,0,0.00000000,23.58490566,True
+tha_Thai,reranking,Thai,TH,Thai,Kra-Dai,Other scripts,0,0,0,0,,0,0,0,,,False
+zho_Hans,reranking,Simplified Chinese,ZH,Han,Sinitic,Other scripts,2320,20020,19999,4587,1.83482202,21,0,21,0.10489510,8.62025862,True
+jpn_Jpan,reranking,Japanese,JA,Japanese,Japonic,Other scripts,1114,20006,20000,3589,1.43561723,6,0,6,0.02999100,17.95332136,True
+kor_Hang,reranking,Korean,KO,Hangul,Koreanic,Other scripts,0,0,0,0,,0,0,0,,,False

@@ -1,0 +1,283 @@
+{
+  "status": "passed",
+  "checks_run": 55,
+  "checks_passed": 55,
+  "failures": [],
+  "checks": [
+    {
+      "name": "all conditions emitted",
+      "passed": true,
+      "detail": "expected=['classification', 'clustering', 'overall', 'reranking', 'retrieval', 'sts'], observed=['classification', 'clustering', 'overall', 'reranking', 'retrieval', 'sts']"
+    },
+    {
+      "name": "classification: native validation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "classification: 24 language-stat rows",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "classification: coverage matches protocol",
+      "passed": true,
+      "detail": "observed=['arb_Arab', 'deu_Latn', 'eng_Latn', 'fra_Latn', 'guj_Gujr', 'hin_Deva', 'hun_Latn', 'ind_Latn', 'ita_Latn', 'jpn_Jpan', 'kor_Hang', 'nld_Latn', 'pol_Latn', 'por_Latn', 'ron_Latn', 'rus_Cyrl', 'spa_Latn', 'swe_Latn', 'tgl_Latn', 'tha_Thai', 'tur_Latn', 'vie_Latn', 'zho_Hans', 'zsm_Latn']"
+    },
+    {
+      "name": "classification/type_iou_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "classification/type_iou_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "classification/frequency_overlap_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "classification/frequency_overlap_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "classification/shared_token_count: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "classification/shared_token_count: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering: native validation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering: 24 language-stat rows",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering: coverage matches protocol",
+      "passed": true,
+      "detail": "observed=['arb_Arab', 'deu_Latn', 'eng_Latn', 'fra_Latn', 'guj_Gujr', 'hin_Deva', 'hun_Latn', 'ind_Latn', 'ita_Latn', 'jpn_Jpan', 'kor_Hang', 'nld_Latn', 'pol_Latn', 'por_Latn', 'ron_Latn', 'rus_Cyrl', 'spa_Latn', 'swe_Latn', 'tgl_Latn', 'tha_Thai', 'tur_Latn', 'vie_Latn', 'zho_Hans', 'zsm_Latn']"
+    },
+    {
+      "name": "clustering/type_iou_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering/type_iou_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering/frequency_overlap_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering/frequency_overlap_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering/shared_token_count: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "clustering/shared_token_count: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall: native validation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall: 24 language-stat rows",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall: coverage matches protocol",
+      "passed": true,
+      "detail": "observed=['arb_Arab', 'deu_Latn', 'eng_Latn', 'fra_Latn', 'guj_Gujr', 'hin_Deva', 'hun_Latn', 'ind_Latn', 'ita_Latn', 'jpn_Jpan', 'kor_Hang', 'nld_Latn', 'pol_Latn', 'por_Latn', 'ron_Latn', 'rus_Cyrl', 'spa_Latn', 'swe_Latn', 'tgl_Latn', 'tha_Thai', 'tur_Latn', 'vie_Latn', 'zho_Hans', 'zsm_Latn']"
+    },
+    {
+      "name": "overall/type_iou_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall/type_iou_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall/frequency_overlap_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall/frequency_overlap_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall/shared_token_count: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "overall/shared_token_count: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking: native validation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking: 24 language-stat rows",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking: coverage matches protocol",
+      "passed": true,
+      "detail": "observed=['deu_Latn', 'eng_Latn', 'fra_Latn', 'hin_Deva', 'ita_Latn', 'jpn_Jpan', 'nld_Latn', 'por_Latn', 'ron_Latn', 'rus_Cyrl', 'swe_Latn', 'zho_Hans']"
+    },
+    {
+      "name": "reranking/type_iou_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking/type_iou_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking/frequency_overlap_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking/frequency_overlap_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking/shared_token_count: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reranking/shared_token_count: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval: native validation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval: 24 language-stat rows",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval: coverage matches protocol",
+      "passed": true,
+      "detail": "observed=['arb_Arab', 'deu_Latn', 'eng_Latn', 'fra_Latn', 'guj_Gujr', 'hin_Deva', 'hun_Latn', 'ind_Latn', 'ita_Latn', 'jpn_Jpan', 'kor_Hang', 'nld_Latn', 'pol_Latn', 'por_Latn', 'ron_Latn', 'rus_Cyrl', 'spa_Latn', 'swe_Latn', 'tgl_Latn', 'tha_Thai', 'tur_Latn', 'vie_Latn', 'zho_Hans', 'zsm_Latn']"
+    },
+    {
+      "name": "retrieval/type_iou_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval/type_iou_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval/frequency_overlap_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval/frequency_overlap_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval/shared_token_count: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "retrieval/shared_token_count: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts: native validation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts: 24 language-stat rows",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts: coverage matches protocol",
+      "passed": true,
+      "detail": "observed=['arb_Arab', 'deu_Latn', 'eng_Latn', 'fra_Latn', 'guj_Gujr', 'hin_Deva', 'ind_Latn', 'ita_Latn', 'jpn_Jpan', 'kor_Hang', 'nld_Latn', 'pol_Latn', 'rus_Cyrl', 'spa_Latn', 'tur_Latn', 'zho_Hans']"
+    },
+    {
+      "name": "sts/type_iou_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts/type_iou_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts/frequency_overlap_percent: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts/frequency_overlap_percent: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts/shared_token_count: 24x24",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sts/shared_token_count: missing coverage masked",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

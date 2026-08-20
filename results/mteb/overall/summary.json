@@ -1,0 +1,47 @@
+{
+  "condition": "overall",
+  "languages": 24,
+  "examples_per_language_min": 857,
+  "examples_per_language_max": 2105,
+  "analysis_tokens_min": 29998,
+  "analysis_tokens_max": 30000,
+  "unique_tokens_min": 2524,
+  "unique_tokens_max": 6467,
+  "unknown_tokens_total": 25,
+  "relation_summaries": {
+    "within Latin-script": {
+      "pairs": 120,
+      "mean_type_iou_percent": 11.475222304152503,
+      "median_type_iou_percent": 10.899261412589528,
+      "mean_shared_token_count": 1100.7416666666666
+    },
+    "Latin ↔ non-Latin": {
+      "pairs": 128,
+      "mean_type_iou_percent": 2.3582321238491275,
+      "median_type_iou_percent": 2.111344541119915,
+      "mean_shared_token_count": 221.625
+    },
+    "within non-Latin scripts": {
+      "pairs": 28,
+      "mean_type_iou_percent": 1.877567000309572,
+      "median_type_iou_percent": 1.4044599906247308,
+      "mean_shared_token_count": 162.25
+    }
+  },
+  "strongest_type_iou_pair": {
+    "language_i": "ind_Latn",
+    "language_j": "zsm_Latn",
+    "relation": "within Latin-script",
+    "type_iou_percent": 39.125341663412726,
+    "shared_token_count": 3006,
+    "frequency_i_to_j_percent": 80.97,
+    "frequency_j_to_i_percent": 81.71333333333334
+  },
+  "largest_frequency_asymmetry": {
+    "language_i": "eng_Latn",
+    "language_j": "vie_Latn",
+    "frequency_i_to_j_percent": 39.03666666666667,
+    "frequency_j_to_i_percent": 16.953333333333333,
+    "absolute_gap_points": 22.083333333333336
+  }
+}

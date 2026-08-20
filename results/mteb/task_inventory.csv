@@ -1,0 +1,16 @@
+name,family,path,revision,selected_scope,languages
+MassiveIntentClassification,classification,mteb/amazon_massive_intent,4672e20407010da34463acc759c162ca9734bca6,validation and test for 23 supported locales,"eng_Latn,deu_Latn,nld_Latn,swe_Latn,spa_Latn,fra_Latn,ita_Latn,por_Latn,ron_Latn,ind_Latn,zsm_Latn,tgl_Latn,pol_Latn,hun_Latn,tur_Latn,vie_Latn,arb_Arab,hin_Deva,rus_Cyrl,tha_Thai,zho_Hans,jpn_Jpan,kor_Hang"
+GujaratiNewsClassification,classification,mteb/GujaratiNewsClassification,7f438910e374d37b9136d4ded9888edb3551a494,test,guj_Gujr
+SIB200ClusteringS2S,clustering,mteb/sib200,a74d7350ea12af010cfb1c21e34f1f81fd2e615b,"train, validation and test for all 24 languages","eng_Latn,deu_Latn,nld_Latn,swe_Latn,spa_Latn,fra_Latn,ita_Latn,por_Latn,ron_Latn,ind_Latn,zsm_Latn,tgl_Latn,pol_Latn,hun_Latn,tur_Latn,vie_Latn,arb_Arab,hin_Deva,guj_Gujr,rus_Cyrl,tha_Thai,zho_Hans,jpn_Jpan,kor_Hang"
+BelebeleRetrieval,retrieval,mteb/belebele,979a211276faa22f671e69d096634193567cfd05,deduplicated test questions and passages for all 24 languages,"eng_Latn,deu_Latn,nld_Latn,swe_Latn,spa_Latn,fra_Latn,ita_Latn,por_Latn,ron_Latn,ind_Latn,zsm_Latn,tgl_Latn,pol_Latn,hun_Latn,tur_Latn,vie_Latn,arb_Arab,hin_Deva,guj_Gujr,rus_Cyrl,tha_Thai,zho_Hans,jpn_Jpan,kor_Hang"
+STS22.v2,sts,mteb/sts22-crosslingual-sts,d31f33a128469b20e357535c39b82fb3c3f6f2bd,ten monolingual test subsets,"arb_Arab,deu_Latn,eng_Latn,fra_Latn,ita_Latn,pol_Latn,rus_Cyrl,spa_Latn,tur_Latn,zho_Hans"
+STS17,sts,mteb/sts17-crosslingual-sts,faeb762787bd10488a50c8b5be4a3b82e411949c,ko-ko and nl-en test subsets,"eng_Latn,kor_Hang,nld_Latn"
+SemRel24STS,sts,mteb/SemRel24STS,f5146bf724c55899ca20502851dc98c5405b67f9,Indonesian and Hindi test subsets,"hin_Deva,ind_Latn"
+IndicCrosslingualSTS,sts,mteb/IndicCrosslingualSTS,f0366eb5a20087355c0e131162bbed943ba54b51,en-gu test subset,"eng_Latn,guj_Gujr"
+JSICK,sts,mteb/JSICK,729cfe4a16d3c2b61c6aa9f9f6c8a96bb5512868,test,jpn_Jpan
+WikipediaRerankingMultilingual,reranking,mteb/WikipediaRerankingMultilingual,803771c366038ed587b21e3d8fe25f8f73134fad,test queries and corpus for eight requested languages,"deu_Latn,eng_Latn,hin_Deva,ita_Latn,nld_Latn,por_Latn,ron_Latn,swe_Latn"
+WebLINXCandidatesReranking,reranking,mteb/WebLINXCandidatesReranking,107fdc2402d2c4bfb2a720dfcfe1f6ff9d21151b,test_iid queries and corpus,eng_Latn
+AlloprofReranking,reranking,mteb/AlloprofReranking,a7d2d793f2e5ba55139bb10088c2e8ee2df2ce02,test queries and corpus,fra_Latn
+VoyageMMarcoReranking,reranking,mteb/VoyageMMarcoReranking,bd2050c52b480e48c51372b4ec98a1cbbc4515f2,test queries and corpus,jpn_Jpan
+RuBQReranking,reranking,mteb/RuBQReranking,e8233e2234f8b24ab47f203b69d1161c3c0bc5a1,test queries and corpus,rus_Cyrl
+T2Reranking,reranking,mteb/T2Reranking,a34fe6bc0dff185af1228e49a0f6fb1de1565627,dev queries and corpus,zho_Hans

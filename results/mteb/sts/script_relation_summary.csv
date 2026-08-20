@@ -1,0 +1,4 @@
+relation,pairs,mean_type_iou_percent,median_type_iou_percent,mean_shared_token_count
+within Latin-script,36,3.947178,3.747132,89.250000
+Latin ↔ non-Latin,63,0.730585,0.726141,16.984127
+within non-Latin scripts,21,0.623938,0.564726,13.619048

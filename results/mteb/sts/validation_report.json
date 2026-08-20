@@ -1,0 +1,148 @@
+{
+  "status": "passed",
+  "checks_run": 28,
+  "checks_passed": 28,
+  "failures": [],
+  "checks": [
+    {
+      "name": "type IoU: shape",
+      "passed": true,
+      "detail": "observed (16, 16), expected (16, 16)"
+    },
+    {
+      "name": "type IoU: row order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "type IoU: column order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "type IoU upper: shape",
+      "passed": true,
+      "detail": "observed (16, 16), expected (16, 16)"
+    },
+    {
+      "name": "type IoU upper: row order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "type IoU upper: column order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "shared count: shape",
+      "passed": true,
+      "detail": "observed (16, 16), expected (16, 16)"
+    },
+    {
+      "name": "shared count: row order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "shared count: column order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "frequency overlap: shape",
+      "passed": true,
+      "detail": "observed (16, 16), expected (16, 16)"
+    },
+    {
+      "name": "frequency overlap: row order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "frequency overlap: column order",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "language inventory is unique",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "type IoU is symmetric",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "type IoU diagonal is 100",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "type IoU is bounded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "shared count is symmetric",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "shared diagonal equals unique-token counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "frequency diagonal is 100",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "frequency overlap is bounded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "upper matrix lower triangle is empty",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "upper matrix matches full IoU",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pairwise long table has n\u00b2 rows",
+      "passed": true,
+      "detail": "observed 256"
+    },
+    {
+      "name": "pairwise directional rows are unique",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "token-frequency counts sum to language totals",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "encoded token identity holds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "language Parquet row count matches CSV",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pairwise Parquet row count matches CSV",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

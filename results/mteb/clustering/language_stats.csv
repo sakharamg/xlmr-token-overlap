@@ -1,0 +1,25 @@
+condition,language_code,language,label,script,family,visual_group,examples,encoded_token_count,analysis_token_count,unique_analysis_token_count,vocabulary_coverage_percent,special_token_count,control_token_count,unknown_token_count,unknown_rate_percent,mean_analysis_tokens_per_example
+clustering,eng_Latn,English,EN,Latin,Germanic,Germanic Latin,677,19993,19993,4805,1.92202306,0,0,0,0.00000000,29.53175775
+clustering,deu_Latn,German,DE,Latin,Germanic,Germanic Latin,569,19994,19994,4945,1.97802374,0,0,0,0.00000000,35.13884007
+clustering,nld_Latn,Dutch,NL,Latin,Germanic,Germanic Latin,577,20000,20000,4480,1.79202150,0,0,0,0.00000000,34.66204506
+clustering,swe_Latn,Swedish,SV,Latin,Germanic,Germanic Latin,632,19998,19998,4752,1.90082281,0,0,0,0.00000000,31.64240506
+clustering,spa_Latn,Spanish,ES,Latin,Romance,Romance Latin,557,20000,20000,4684,1.87362248,0,0,0,0.00000000,35.90664273
+clustering,fra_Latn,French,FR,Latin,Romance,Romance Latin,521,19999,19999,4230,1.69202030,0,0,0,0.00000000,38.38579655
+clustering,ita_Latn,Italian,IT,Latin,Romance,Romance Latin,546,19992,19992,4818,1.92722313,0,0,0,0.00000000,36.61538462
+clustering,por_Latn,Portuguese,PT,Latin,Romance,Romance Latin,601,19999,19999,4720,1.88802266,0,0,0,0.00000000,33.27620632
+clustering,ron_Latn,Romanian,RO,Latin,Romance,Romance Latin,536,20000,20000,4490,1.79602155,0,0,0,0.00000000,37.31343284
+clustering,ind_Latn,Indonesian,ID,Latin,Austronesian,Austronesian Latin,710,19994,19994,4812,1.92482310,0,0,0,0.00000000,28.16056338
+clustering,zsm_Latn,Malay,MS,Latin,Austronesian,Austronesian Latin,708,19988,19988,4705,1.88202258,0,0,0,0.00000000,28.23163842
+clustering,tgl_Latn,Filipino/Tagalog,TL,Latin,Austronesian,Austronesian Latin,460,19991,19991,3546,1.41841702,0,0,0,0.00000000,43.45869565
+clustering,pol_Latn,Polish,PL,Latin,Slavic,Other Latin,563,19991,19991,5034,2.01362416,0,0,0,0.00000000,35.50799290
+clustering,hun_Latn,Hungarian,HU,Latin,Uralic,Other Latin,569,20000,20000,4837,1.93482322,0,0,0,0.00000000,35.14938489
+clustering,tur_Latn,Turkish,TR,Latin,Turkic,Other Latin,644,19994,19994,5052,2.02082425,0,0,0,0.00000000,31.04658385
+clustering,vie_Latn,Vietnamese,VI,Latin,Austroasiatic,Other Latin,566,20000,20000,2866,1.14641376,0,0,0,0.00000000,35.33568905
+clustering,arb_Arab,Arabic,AR,Arabic,Semitic,Other scripts,561,19991,19991,3961,1.58441901,0,0,0,0.00000000,35.63458111
+clustering,hin_Deva,Hindi,HI,Devanagari,Indo-Aryan,Other scripts,531,19993,19993,2931,1.17241407,0,0,0,0.00000000,37.65160075
+clustering,guj_Gujr,Gujarati,GU,Gujarati,Indo-Aryan,Other scripts,471,19989,19989,2004,0.80160962,0,0,0,0.00000000,42.43949045
+clustering,rus_Cyrl,Russian,RU,Cyrillic,Slavic,Other scripts,552,20000,20000,5453,2.18122617,0,0,0,0.00000000,36.23188406
+clustering,tha_Thai,Thai,TH,Thai,Kra-Dai,Other scripts,618,19992,19992,3351,1.34041608,0,0,0,0.00000000,32.34951456
+clustering,zho_Hans,Simplified Chinese,ZH,Han,Sinitic,Other scripts,679,20005,20000,4706,1.88242259,5,0,5,0.02499375,29.45508100
+clustering,jpn_Jpan,Japanese,JA,Japanese,Japonic,Other scripts,606,19994,19994,3930,1.57201886,0,0,0,0.00000000,32.99339934
+clustering,kor_Hang,Korean,KO,Hangul,Koreanic,Other scripts,581,20000,19993,3446,1.37841654,7,0,7,0.03500000,34.41135972

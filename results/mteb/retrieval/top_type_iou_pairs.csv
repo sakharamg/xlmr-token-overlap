@@ -1,0 +1,31 @@
+language_i,language_j,relation,type_iou_percent,shared_token_count,frequency_i_to_j_percent,frequency_j_to_i_percent
+ind_Latn,zsm_Latn,within Latin-script,38.478061,2508,78.940000,80.173017
+spa_Latn,por_Latn,within Latin-script,23.207521,1654,60.641064,59.360936
+ita_Latn,por_Latn,within Latin-script,16.730088,1275,52.000000,54.045405
+spa_Latn,ita_Latn,within Latin-script,15.834541,1202,53.445345,49.595000
+zsm_Latn,tgl_Latn,within Latin-script,15.137195,993,32.043204,49.332333
+eng_Latn,fra_Latn,within Latin-script,14.445721,1006,44.418325,48.324832
+ind_Latn,tgl_Latn,within Latin-script,14.401057,981,34.485000,49.102276
+deu_Latn,nld_Latn,within Latin-script,14.127209,1095,42.866430,43.795000
+eng_Latn,ita_Latn,within Latin-script,13.731382,1051,42.857857,44.715000
+eng_Latn,swe_Latn,within Latin-script,13.422292,1026,50.290087,38.525779
+fra_Latn,ita_Latn,within Latin-script,13.027244,942,52.010201,45.820000
+eng_Latn,tgl_Latn,within Latin-script,12.886519,846,42.342703,38.109527
+eng_Latn,zsm_Latn,within Latin-script,12.860687,985,41.147344,27.412741
+eng_Latn,por_Latn,within Latin-script,12.822842,988,48.429529,42.629263
+deu_Latn,swe_Latn,within Latin-script,12.716619,1020,37.285593,36.520478
+zsm_Latn,tur_Latn,within Latin-script,12.626200,1013,35.563556,35.235285
+eng_Latn,nld_Latn,within Latin-script,12.504978,942,49.539862,44.455000
+nld_Latn,ind_Latn,within Latin-script,12.484125,983,38.860000,30.875000
+swe_Latn,zsm_Latn,within Latin-script,12.484044,978,36.680502,29.527953
+fra_Latn,por_Latn,within Latin-script,12.364037,898,50.525053,46.564656
+nld_Latn,swe_Latn,within Latin-script,12.246753,943,44.870000,36.470471
+deu_Latn,ind_Latn,within Latin-script,12.195418,1006,38.600790,32.135000
+zho_Hans,jpn_Jpan,within non-Latin scripts,12.108360,885,42.727136,29.474421
+swe_Latn,ind_Latn,within Latin-script,12.099071,977,38.430765,32.145000
+eng_Latn,ind_Latn,within Latin-script,12.044394,955,39.361809,29.020000
+nld_Latn,ron_Latn,within Latin-script,11.959013,887,39.620000,36.468647
+swe_Latn,ita_Latn,within Latin-script,11.933897,946,44.041606,41.940000
+ind_Latn,tur_Latn,within Latin-script,11.812922,980,37.910000,34.690204
+por_Latn,tgl_Latn,within Latin-script,11.794118,802,43.974397,40.425106
+eng_Latn,deu_Latn,within Latin-script,11.708423,930,44.183255,37.510627

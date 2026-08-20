@@ -1,0 +1,17 @@
+order,language_code,language,label,script,family,visual_group
+1,eng_Latn,English,EN,Latin,Germanic,Germanic Latin
+2,deu_Latn,German,DE,Latin,Germanic,Germanic Latin
+3,nld_Latn,Dutch,NL,Latin,Germanic,Germanic Latin
+4,spa_Latn,Spanish,ES,Latin,Romance,Romance Latin
+5,fra_Latn,French,FR,Latin,Romance,Romance Latin
+6,ita_Latn,Italian,IT,Latin,Romance,Romance Latin
+7,ind_Latn,Indonesian,ID,Latin,Austronesian,Austronesian Latin
+8,pol_Latn,Polish,PL,Latin,Slavic,Other Latin
+9,tur_Latn,Turkish,TR,Latin,Turkic,Other Latin
+10,arb_Arab,Arabic,AR,Arabic,Semitic,Other scripts
+11,hin_Deva,Hindi,HI,Devanagari,Indo-Aryan,Other scripts
+12,guj_Gujr,Gujarati,GU,Gujarati,Indo-Aryan,Other scripts
+13,rus_Cyrl,Russian,RU,Cyrillic,Slavic,Other scripts
+14,zho_Hans,Simplified Chinese,ZH,Han,Sinitic,Other scripts
+15,jpn_Jpan,Japanese,JA,Japanese,Japonic,Other scripts
+16,kor_Hang,Korean,KO,Hangul,Koreanic,Other scripts

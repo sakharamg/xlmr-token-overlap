@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "conditions": {
+    "classification": "results/mteb/classification",
+    "clustering": "results/mteb/clustering",
+    "overall": "results/mteb/overall",
+    "reranking": "results/mteb/reranking",
+    "retrieval": "results/mteb/retrieval",
+    "sts": "results/mteb/sts"
+  },
+  "coverage": {
+    "classification": 24,
+    "clustering": 24,
+    "overall": 24,
+    "reranking": 12,
+    "retrieval": 24,
+    "sts": 16
+  },
+  "validation": {
+    "checks_run": 55,
+    "checks_passed": 55
+  }
+}

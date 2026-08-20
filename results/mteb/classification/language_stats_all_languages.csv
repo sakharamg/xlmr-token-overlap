@@ -1,0 +1,25 @@
+language_code,condition,language,label,script,family,visual_group,examples,encoded_token_count,analysis_token_count,unique_analysis_token_count,vocabulary_coverage_percent,special_token_count,control_token_count,unknown_token_count,unknown_rate_percent,mean_analysis_tokens_per_example,available
+eng_Latn,classification,English,EN,Latin,Germanic,Germanic Latin,2467,20000,20000,2376,0.95041140,0,0,0,0.00000000,8.10701257,True
+deu_Latn,classification,German,DE,Latin,Germanic,Germanic Latin,2105,20000,20000,2506,1.00241203,0,0,0,0.00000000,9.50118765,True
+nld_Latn,classification,Dutch,NL,Latin,Germanic,Germanic Latin,2179,20000,20000,2437,0.97481170,0,0,0,0.00000000,9.17852226,True
+swe_Latn,classification,Swedish,SV,Latin,Germanic,Germanic Latin,2407,20000,20000,2744,1.09761317,0,0,0,0.00000000,8.30909846,True
+spa_Latn,classification,Spanish,ES,Latin,Romance,Romance Latin,2258,20000,20000,2740,1.09601315,0,0,0,0.00000000,8.85739593,True
+fra_Latn,classification,French,FR,Latin,Romance,Romance Latin,1888,20000,20000,2315,0.92601111,0,0,0,0.00000000,10.59322034,True
+ita_Latn,classification,Italian,IT,Latin,Romance,Romance Latin,2253,20000,20000,2611,1.04441253,0,0,0,0.00000000,8.87705282,True
+por_Latn,classification,Portuguese,PT,Latin,Romance,Romance Latin,2233,20000,20000,2598,1.03921247,0,0,0,0.00000000,8.95656068,True
+ron_Latn,classification,Romanian,RO,Latin,Romance,Romance Latin,2234,20000,20000,2747,1.09881319,0,0,0,0.00000000,8.95255148,True
+ind_Latn,classification,Indonesian,ID,Latin,Austronesian,Austronesian Latin,2544,20000,20000,2458,0.98321180,0,0,0,0.00000000,7.86163522,True
+zsm_Latn,classification,Malay,MS,Latin,Austronesian,Austronesian Latin,2505,20000,20000,2492,0.99681196,0,0,0,0.00000000,7.98403194,True
+tgl_Latn,classification,Filipino/Tagalog,TL,Latin,Austronesian,Austronesian Latin,1853,20000,20000,2237,0.89481074,0,0,0,0.00000000,10.79330815,True
+pol_Latn,classification,Polish,PL,Latin,Slavic,Other Latin,2212,20000,20000,2907,1.16281395,0,0,0,0.00000000,9.04159132,True
+hun_Latn,classification,Hungarian,HU,Latin,Uralic,Other Latin,1985,20000,20000,2744,1.09761317,0,0,0,0.00000000,10.07556675,True
+tur_Latn,classification,Turkish,TR,Latin,Turkic,Other Latin,2452,20000,20000,2848,1.13921367,0,0,0,0.00000000,8.15660685,True
+vie_Latn,classification,Vietnamese,VI,Latin,Austroasiatic,Other Latin,1962,20000,20000,1506,0.60240723,0,0,0,0.00000000,10.19367992,True
+arb_Arab,classification,Arabic,AR,Arabic,Semitic,Other scripts,2347,20000,20000,2904,1.16161394,0,0,0,0.00000000,8.52151683,True
+hin_Deva,classification,Hindi,HI,Devanagari,Indo-Aryan,Other scripts,2058,20000,20000,2281,0.91241095,0,0,0,0.00000000,9.71817298,True
+guj_Gujr,classification,Gujarati,GU,Gujarati,Indo-Aryan,Other scripts,919,20000,20000,2276,0.91041092,0,0,0,0.00000000,21.76278564,True
+rus_Cyrl,classification,Russian,RU,Cyrillic,Slavic,Other scripts,2234,20000,20000,3209,1.28361540,0,0,0,0.00000000,8.95255148,True
+tha_Thai,classification,Thai,TH,Thai,Kra-Dai,Other scripts,2148,20000,20000,2148,0.85921031,0,0,0,0.00000000,9.31098696,True
+zho_Hans,classification,Simplified Chinese,ZH,Han,Sinitic,Other scripts,2568,20001,20000,2682,1.07281287,1,0,1,0.00499975,7.78816199,True
+jpn_Jpan,classification,Japanese,JA,Japanese,Japonic,Other scripts,2183,20000,20000,2682,1.07281287,0,0,0,0.00000000,9.16170408,True
+kor_Hang,classification,Korean,KO,Hangul,Koreanic,Other scripts,2305,20001,20000,2126,0.85041020,1,0,1,0.00499975,8.67678959,True

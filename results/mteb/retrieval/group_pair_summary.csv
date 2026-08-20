@@ -1,0 +1,16 @@
+group_i,group_j,pairs,mean_type_iou_percent,median_type_iou_percent
+Germanic Latin,Germanic Latin,6,12.787712,12.610798
+Germanic Latin,Romance Latin,20,10.364768,9.793314
+Austronesian Latin,Germanic Latin,12,11.381281,12.071733
+Germanic Latin,Other Latin,16,8.155592,8.435019
+Germanic Latin,Other scripts,32,2.225667,1.466858
+Romance Latin,Romance Latin,10,13.510894,12.003578
+Austronesian Latin,Romance Latin,15,10.087762,10.374605
+Other Latin,Romance Latin,20,7.561219,7.582468
+Other scripts,Romance Latin,40,1.976662,1.524861
+Austronesian Latin,Austronesian Latin,3,22.672104,15.137195
+Austronesian Latin,Other Latin,12,8.846059,9.261645
+Austronesian Latin,Other scripts,24,2.326141,1.698366
+Other Latin,Other Latin,6,6.337963,6.495918
+Other Latin,Other scripts,32,1.877565,1.557454
+Other scripts,Other scripts,28,1.781377,1.296932

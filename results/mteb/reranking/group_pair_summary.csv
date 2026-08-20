@@ -1,0 +1,7 @@
+group_i,group_j,pairs,mean_type_iou_percent,median_type_iou_percent
+Germanic Latin,Germanic Latin,6,11.314294,11.418162
+Germanic Latin,Romance Latin,16,10.003927,10.079809
+Germanic Latin,Other scripts,16,2.137548,2.120171
+Romance Latin,Romance Latin,6,11.907436,11.557955
+Other scripts,Romance Latin,16,2.117071,2.068479
+Other scripts,Other scripts,6,2.468810,0.999077

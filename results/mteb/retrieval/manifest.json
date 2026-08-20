@@ -1,0 +1,705 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-20T05:34:22.393906+00:00",
+  "package": {
+    "name": "xlmr-token-overlap",
+    "version": "0.2.0"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "tokenizers": "0.22.1",
+    "pandas": "2.3.2"
+  },
+  "condition": "retrieval",
+  "language_order": [
+    "eng_Latn",
+    "deu_Latn",
+    "nld_Latn",
+    "swe_Latn",
+    "spa_Latn",
+    "fra_Latn",
+    "ita_Latn",
+    "por_Latn",
+    "ron_Latn",
+    "ind_Latn",
+    "zsm_Latn",
+    "tgl_Latn",
+    "pol_Latn",
+    "hun_Latn",
+    "tur_Latn",
+    "vie_Latn",
+    "arb_Arab",
+    "hin_Deva",
+    "guj_Gujr",
+    "rus_Cyrl",
+    "tha_Thai",
+    "zho_Hans",
+    "jpn_Jpan",
+    "kor_Hang"
+  ],
+  "tokenizer": {
+    "path": "data/tokenizers/xlm-roberta-base/tokenizer.json",
+    "sha256": "a898ea75433890f6610f4e470b8ebeb0c21dce5c8dd61f892eb09eb5919d2e2c",
+    "vocab_size_with_added_tokens": 250002,
+    "eligible_vocab_size": 249997,
+    "special_token_ids_excluded": [
+      0,
+      1,
+      2,
+      3,
+      250001
+    ],
+    "special_tokens_excluded": {
+      "0": "<s>",
+      "1": "<pad>",
+      "2": "</s>",
+      "3": "<unk>",
+      "250001": "<mask>"
+    },
+    "unknown_token_id": 3,
+    "external_normalization": "none",
+    "add_special_tokens": false,
+    "truncation": false,
+    "padding": false
+  },
+  "overlap_protocol": {
+    "analysis_vocabulary": "observed token IDs excluding all tokenizer special IDs",
+    "shared_token_count": "|V_i ∩ V_j|",
+    "type_iou_percent": "100 × |V_i ∩ V_j| / |V_i ∪ V_j|",
+    "frequency_overlap_percent": "100 × sum_{t in V_i ∩ V_j} c_i(t) / sum_{t in V_i} c_i(t)",
+    "frequency_direction": "matrix row/source i → column/target j"
+  },
+  "provenance": {
+    "dataset": "MTEB(Multilingual, v2)",
+    "mteb_version": "2.19.5",
+    "mteb_source_revision": "0adc124417f74e56fd974eb3c64856b8a9e12196",
+    "scope": "coverage-balanced tokenizer-audit task slice",
+    "task_count": 15,
+    "task_revisions": [
+      {
+        "name": "MassiveIntentClassification",
+        "family": "classification",
+        "path": "mteb/amazon_massive_intent",
+        "revision": "4672e20407010da34463acc759c162ca9734bca6",
+        "selected_scope": "validation and test for 23 supported locales",
+        "languages": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "swe_Latn",
+          "spa_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "ind_Latn",
+          "zsm_Latn",
+          "tgl_Latn",
+          "pol_Latn",
+          "hun_Latn",
+          "tur_Latn",
+          "vie_Latn",
+          "arb_Arab",
+          "hin_Deva",
+          "rus_Cyrl",
+          "tha_Thai",
+          "zho_Hans",
+          "jpn_Jpan",
+          "kor_Hang"
+        ]
+      },
+      {
+        "name": "GujaratiNewsClassification",
+        "family": "classification",
+        "path": "mteb/GujaratiNewsClassification",
+        "revision": "7f438910e374d37b9136d4ded9888edb3551a494",
+        "selected_scope": "test",
+        "languages": [
+          "guj_Gujr"
+        ]
+      },
+      {
+        "name": "SIB200ClusteringS2S",
+        "family": "clustering",
+        "path": "mteb/sib200",
+        "revision": "a74d7350ea12af010cfb1c21e34f1f81fd2e615b",
+        "selected_scope": "train, validation and test for all 24 languages",
+        "languages": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "swe_Latn",
+          "spa_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "ind_Latn",
+          "zsm_Latn",
+          "tgl_Latn",
+          "pol_Latn",
+          "hun_Latn",
+          "tur_Latn",
+          "vie_Latn",
+          "arb_Arab",
+          "hin_Deva",
+          "guj_Gujr",
+          "rus_Cyrl",
+          "tha_Thai",
+          "zho_Hans",
+          "jpn_Jpan",
+          "kor_Hang"
+        ]
+      },
+      {
+        "name": "BelebeleRetrieval",
+        "family": "retrieval",
+        "path": "mteb/belebele",
+        "revision": "979a211276faa22f671e69d096634193567cfd05",
+        "selected_scope": "deduplicated test questions and passages for all 24 languages",
+        "languages": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "swe_Latn",
+          "spa_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "ind_Latn",
+          "zsm_Latn",
+          "tgl_Latn",
+          "pol_Latn",
+          "hun_Latn",
+          "tur_Latn",
+          "vie_Latn",
+          "arb_Arab",
+          "hin_Deva",
+          "guj_Gujr",
+          "rus_Cyrl",
+          "tha_Thai",
+          "zho_Hans",
+          "jpn_Jpan",
+          "kor_Hang"
+        ]
+      },
+      {
+        "name": "STS22.v2",
+        "family": "sts",
+        "path": "mteb/sts22-crosslingual-sts",
+        "revision": "d31f33a128469b20e357535c39b82fb3c3f6f2bd",
+        "selected_scope": "ten monolingual test subsets",
+        "languages": [
+          "arb_Arab",
+          "deu_Latn",
+          "eng_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "pol_Latn",
+          "rus_Cyrl",
+          "spa_Latn",
+          "tur_Latn",
+          "zho_Hans"
+        ]
+      },
+      {
+        "name": "STS17",
+        "family": "sts",
+        "path": "mteb/sts17-crosslingual-sts",
+        "revision": "faeb762787bd10488a50c8b5be4a3b82e411949c",
+        "selected_scope": "ko-ko and nl-en test subsets",
+        "languages": [
+          "eng_Latn",
+          "kor_Hang",
+          "nld_Latn"
+        ]
+      },
+      {
+        "name": "SemRel24STS",
+        "family": "sts",
+        "path": "mteb/SemRel24STS",
+        "revision": "f5146bf724c55899ca20502851dc98c5405b67f9",
+        "selected_scope": "Indonesian and Hindi test subsets",
+        "languages": [
+          "hin_Deva",
+          "ind_Latn"
+        ]
+      },
+      {
+        "name": "IndicCrosslingualSTS",
+        "family": "sts",
+        "path": "mteb/IndicCrosslingualSTS",
+        "revision": "f0366eb5a20087355c0e131162bbed943ba54b51",
+        "selected_scope": "en-gu test subset",
+        "languages": [
+          "eng_Latn",
+          "guj_Gujr"
+        ]
+      },
+      {
+        "name": "JSICK",
+        "family": "sts",
+        "path": "mteb/JSICK",
+        "revision": "729cfe4a16d3c2b61c6aa9f9f6c8a96bb5512868",
+        "selected_scope": "test",
+        "languages": [
+          "jpn_Jpan"
+        ]
+      },
+      {
+        "name": "WikipediaRerankingMultilingual",
+        "family": "reranking",
+        "path": "mteb/WikipediaRerankingMultilingual",
+        "revision": "803771c366038ed587b21e3d8fe25f8f73134fad",
+        "selected_scope": "test queries and corpus for eight requested languages",
+        "languages": [
+          "deu_Latn",
+          "eng_Latn",
+          "hin_Deva",
+          "ita_Latn",
+          "nld_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "swe_Latn"
+        ]
+      },
+      {
+        "name": "WebLINXCandidatesReranking",
+        "family": "reranking",
+        "path": "mteb/WebLINXCandidatesReranking",
+        "revision": "107fdc2402d2c4bfb2a720dfcfe1f6ff9d21151b",
+        "selected_scope": "test_iid queries and corpus",
+        "languages": [
+          "eng_Latn"
+        ]
+      },
+      {
+        "name": "AlloprofReranking",
+        "family": "reranking",
+        "path": "mteb/AlloprofReranking",
+        "revision": "a7d2d793f2e5ba55139bb10088c2e8ee2df2ce02",
+        "selected_scope": "test queries and corpus",
+        "languages": [
+          "fra_Latn"
+        ]
+      },
+      {
+        "name": "VoyageMMarcoReranking",
+        "family": "reranking",
+        "path": "mteb/VoyageMMarcoReranking",
+        "revision": "bd2050c52b480e48c51372b4ec98a1cbbc4515f2",
+        "selected_scope": "test queries and corpus",
+        "languages": [
+          "jpn_Jpan"
+        ]
+      },
+      {
+        "name": "RuBQReranking",
+        "family": "reranking",
+        "path": "mteb/RuBQReranking",
+        "revision": "e8233e2234f8b24ab47f203b69d1161c3c0bc5a1",
+        "selected_scope": "test queries and corpus",
+        "languages": [
+          "rus_Cyrl"
+        ]
+      },
+      {
+        "name": "T2Reranking",
+        "family": "reranking",
+        "path": "mteb/T2Reranking",
+        "revision": "a34fe6bc0dff185af1228e49a0f6fb1de1565627",
+        "selected_scope": "dev queries and corpus",
+        "languages": [
+          "zho_Hans"
+        ]
+      }
+    ],
+    "sampling": {
+      "requested_family_token_budget": 20000,
+      "effective_family_token_budgets": {
+        "sts": 2951,
+        "retrieval": 20000,
+        "classification": 20000,
+        "clustering": 20000,
+        "reranking": 20000
+      },
+      "requested_overall_token_budget": 30000,
+      "effective_overall_token_budget": 30000,
+      "seed": 1729,
+      "coverage": {
+        "sts": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "spa_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "ind_Latn",
+          "pol_Latn",
+          "tur_Latn",
+          "arb_Arab",
+          "hin_Deva",
+          "guj_Gujr",
+          "rus_Cyrl",
+          "zho_Hans",
+          "jpn_Jpan",
+          "kor_Hang"
+        ],
+        "retrieval": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "swe_Latn",
+          "spa_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "ind_Latn",
+          "zsm_Latn",
+          "tgl_Latn",
+          "pol_Latn",
+          "hun_Latn",
+          "tur_Latn",
+          "vie_Latn",
+          "arb_Arab",
+          "hin_Deva",
+          "guj_Gujr",
+          "rus_Cyrl",
+          "tha_Thai",
+          "zho_Hans",
+          "jpn_Jpan",
+          "kor_Hang"
+        ],
+        "classification": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "swe_Latn",
+          "spa_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "ind_Latn",
+          "zsm_Latn",
+          "tgl_Latn",
+          "pol_Latn",
+          "hun_Latn",
+          "tur_Latn",
+          "vie_Latn",
+          "arb_Arab",
+          "hin_Deva",
+          "guj_Gujr",
+          "rus_Cyrl",
+          "tha_Thai",
+          "zho_Hans",
+          "jpn_Jpan",
+          "kor_Hang"
+        ],
+        "clustering": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "swe_Latn",
+          "spa_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "ind_Latn",
+          "zsm_Latn",
+          "tgl_Latn",
+          "pol_Latn",
+          "hun_Latn",
+          "tur_Latn",
+          "vie_Latn",
+          "arb_Arab",
+          "hin_Deva",
+          "guj_Gujr",
+          "rus_Cyrl",
+          "tha_Thai",
+          "zho_Hans",
+          "jpn_Jpan",
+          "kor_Hang"
+        ],
+        "reranking": [
+          "eng_Latn",
+          "deu_Latn",
+          "nld_Latn",
+          "swe_Latn",
+          "fra_Latn",
+          "ita_Latn",
+          "por_Latn",
+          "ron_Latn",
+          "hin_Deva",
+          "rus_Cyrl",
+          "zho_Hans",
+          "jpn_Jpan"
+        ]
+      }
+    },
+    "cache_dir": "data/mteb-cache",
+    "raw_text_committed": false
+  },
+  "summary": {
+    "condition": "retrieval",
+    "languages": 24,
+    "examples_per_language_min": 294,
+    "examples_per_language_max": 442,
+    "analysis_tokens_min": 19994,
+    "analysis_tokens_max": 20000,
+    "unique_tokens_min": 1905,
+    "unique_tokens_max": 4941,
+    "unknown_tokens_total": 5,
+    "relation_summaries": {
+      "within Latin-script": {
+        "pairs": 120,
+        "mean_type_iou_percent": 10.007775148509678,
+        "median_type_iou_percent": 9.624282663287957,
+        "mean_shared_token_count": 762.175
+      },
+      "Latin ↔ non-Latin": {
+        "pairs": 128,
+        "mean_type_iou_percent": 2.0796660459601863,
+        "median_type_iou_percent": 1.533918597474996,
+        "mean_shared_token_count": 155.5078125
+      },
+      "within non-Latin scripts": {
+        "pairs": 28,
+        "mean_type_iou_percent": 1.781376903731849,
+        "median_type_iou_percent": 1.2969321525943474,
+        "mean_shared_token_count": 121.17857142857143
+      }
+    },
+    "strongest_type_iou_pair": {
+      "language_i": "ind_Latn",
+      "language_j": "zsm_Latn",
+      "relation": "within Latin-script",
+      "type_iou_percent": 38.47806075483277,
+      "shared_token_count": 2508,
+      "frequency_i_to_j_percent": 78.94,
+      "frequency_j_to_i_percent": 80.17301730173017
+    },
+    "largest_frequency_asymmetry": {
+      "language_i": "tgl_Latn",
+      "language_j": "vie_Latn",
+      "frequency_i_to_j_percent": 33.87846961740435,
+      "frequency_j_to_i_percent": 13.942788557711543,
+      "absolute_gap_points": 19.935681059692804
+    }
+  },
+  "validation": {
+    "status": "passed",
+    "checks_run": 28
+  },
+  "outputs": [
+    {
+      "path": "REPORT.md",
+      "bytes": 1435,
+      "sha256": "3d2f176c666c631765d624ea10de6a012acc10fa5ec4d912cb98ae561b56adf0"
+    },
+    {
+      "path": "frequency_overlap_percent.csv",
+      "bytes": 7255,
+      "sha256": "11fb96c63613137f429b87e1caf15bc900fc1adff317d45f55c8112aed4c8fde"
+    },
+    {
+      "path": "frequency_overlap_percent.parquet",
+      "bytes": 20089,
+      "sha256": "16ce7c7bb566077261f0d69599fce7ee6e3da11d75a521b15c92c848fe731c09"
+    },
+    {
+      "path": "frequency_overlap_percent_all_languages.csv",
+      "bytes": 7255,
+      "sha256": "11fb96c63613137f429b87e1caf15bc900fc1adff317d45f55c8112aed4c8fde"
+    },
+    {
+      "path": "frequency_overlap_percent_all_languages.parquet",
+      "bytes": 20091,
+      "sha256": "69befe84a364b656c10917478792f3248a68c359674e1401d4f0ce55524a5fa5"
+    },
+    {
+      "path": "group_pair_summary.csv",
+      "bytes": 835,
+      "sha256": "95e6ea30a2fbb4101175889bf62fdea7582c5ff0f0bca7a200b9a761359d051e"
+    },
+    {
+      "path": "heatmaps/frequency_overlap_directional.png",
+      "bytes": 436027,
+      "sha256": "e8fe2262178ea2688fdf4c55cb4ee518399cf64699862ea4e347e7082e013292"
+    },
+    {
+      "path": "heatmaps/shared_token_count.png",
+      "bytes": 446064,
+      "sha256": "181fcb84f65d40140d57c9821f5d5d2e012feaaf517432735f2d19cacf4d81da"
+    },
+    {
+      "path": "heatmaps/type_iou_upper.png",
+      "bytes": 277385,
+      "sha256": "89e604d9893b385b67f874c591c62c7741a0b95130da602cc6ab4f90a97aef4f"
+    },
+    {
+      "path": "heatmaps_all_languages/frequency_overlap_directional.png",
+      "bytes": 441264,
+      "sha256": "90c23b2567e924a5cdc66084772e0958d59288f4556caa615c1d80011efe04df"
+    },
+    {
+      "path": "heatmaps_all_languages/shared_token_count.png",
+      "bytes": 455033,
+      "sha256": "2880ce990716587cef76e7ce51a40f44572eb5bfeb2154cab55eb8a6f712d09a"
+    },
+    {
+      "path": "heatmaps_all_languages/type_iou_upper.png",
+      "bytes": 279023,
+      "sha256": "67784cbf0bb8114792258896d22d4a685c0acdf3e218586b37d8e8bab99533b5"
+    },
+    {
+      "path": "language_key.csv",
+      "bytes": 1349,
+      "sha256": "08503b4744561f7a62fb2ed4adfb6b2f96126bd321387eec936fe0275d695aa5"
+    },
+    {
+      "path": "language_stats.csv",
+      "bytes": 3214,
+      "sha256": "48b0598311e069578eefefa766280ff820656ae0a854acf5c86f105d6c45fa0c"
+    },
+    {
+      "path": "language_stats.parquet",
+      "bytes": 12615,
+      "sha256": "650e5e46b41d75b9eecdf763fcfccda3fc8ee78b56d525fa413b012aae007fef"
+    },
+    {
+      "path": "language_stats_all_languages.csv",
+      "bytes": 3344,
+      "sha256": "a4641c5e19a0ba5c4b6dc4ecf131278f1a14f4815bebe39a72453a1007859b4f"
+    },
+    {
+      "path": "language_stats_all_languages.parquet",
+      "bytes": 13084,
+      "sha256": "a607bb408eeb0675dd7dac236a9ed1cd5e7e633aa9a38140c22d177df2ef822f"
+    },
+    {
+      "path": "missing_languages.json",
+      "bytes": 30,
+      "sha256": "40560ce6db7e46c4083fb8e564326a48aeae27c5f7cdfe75017c7f41364ef336"
+    },
+    {
+      "path": "pairwise_long.csv",
+      "bytes": 48627,
+      "sha256": "ac2eafc57b2e9c92d92dd614c014ad2c7278da97f8d8179382c3e46c05833b36"
+    },
+    {
+      "path": "pairwise_long.parquet",
+      "bytes": 22318,
+      "sha256": "4deba6556efd340ca638fcc02c54ad8e7f1d0ac3d3c4f38feaddd77a2ef0fbd9"
+    },
+    {
+      "path": "script_relation_summary.csv",
+      "bytes": 249,
+      "sha256": "ef145da85d5a3f32355f62fdc748d1646fd213c92f02ba649720820594129a6b"
+    },
+    {
+      "path": "shared_token_count.csv",
+      "bytes": 2648,
+      "sha256": "3a469b91b78fd298443eca72e685b2edb5a96a334022904f6788c95643efac6c"
+    },
+    {
+      "path": "shared_token_count.parquet",
+      "bytes": 17927,
+      "sha256": "b6b21e9103d5b4af9b7b7832660a0a51608cff3b2d23feddd8e8b3d1713281e1"
+    },
+    {
+      "path": "shared_token_count_all_languages.csv",
+      "bytes": 2648,
+      "sha256": "3a469b91b78fd298443eca72e685b2edb5a96a334022904f6788c95643efac6c"
+    },
+    {
+      "path": "shared_token_count_all_languages.parquet",
+      "bytes": 17927,
+      "sha256": "b6b21e9103d5b4af9b7b7832660a0a51608cff3b2d23feddd8e8b3d1713281e1"
+    },
+    {
+      "path": "split_stats.csv",
+      "bytes": 3127,
+      "sha256": "4b6afaf769f163fe4e2b5614c36fcbb8e7e437f0733c3c3b54919fa38a629fe4"
+    },
+    {
+      "path": "split_stats.parquet",
+      "bytes": 5125,
+      "sha256": "8cc283e53cf4376a0ef0c2063e5c651ebc5baed0decbe5f0dcfc8406b5498f41"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1470,
+      "sha256": "6613b3d306ffabd34e83676e30d102f96a3ec6cce922f6d7696f88fdb4620187"
+    },
+    {
+      "path": "token_frequencies.csv",
+      "bytes": 4433354,
+      "sha256": "4eeeee57aefdfc2c78afc21c1f069a7591fbf8d3403426385c8c46a59ef057db"
+    },
+    {
+      "path": "token_frequencies.parquet",
+      "bytes": 1257224,
+      "sha256": "d81e3d65c36fd1e2459177f254abda70ae4ad910b137043c226b1436d73a34ca"
+    },
+    {
+      "path": "top_frequency_asymmetries.csv",
+      "bytes": 1527,
+      "sha256": "04537af05b35d293d770504473649365a733ebec999c236998b83a657fcc5e34"
+    },
+    {
+      "path": "top_type_iou_pairs.csv",
+      "bytes": 2293,
+      "sha256": "5c076d4a47ca6a89c62dbe12de85db6b04278b2be41fc4e1c60440b38ce3d2b0"
+    },
+    {
+      "path": "type_iou_percent.csv",
+      "bytes": 6940,
+      "sha256": "d7b304c160818ff13efa8cabbc0f4274a714bf783673078737f5941340559619"
+    },
+    {
+      "path": "type_iou_percent.parquet",
+      "bytes": 20041,
+      "sha256": "05ea4e76be7d1da36b03ced8cef7a8707bde2a665beca805380b775bdc71fdc0"
+    },
+    {
+      "path": "type_iou_percent_all_languages.csv",
+      "bytes": 6940,
+      "sha256": "d7b304c160818ff13efa8cabbc0f4274a714bf783673078737f5941340559619"
+    },
+    {
+      "path": "type_iou_percent_all_languages.parquet",
+      "bytes": 20043,
+      "sha256": "5396a054aa1b88d29badaa0de2774de95b4c24dda4b46f7cf2e0a5c46e848911"
+    },
+    {
+      "path": "type_iou_percent_upper.csv",
+      "bytes": 4125,
+      "sha256": "7fb895c89c6fffccf550ef27c0b5e1e06bc0a21a48232101b70367bc61283d45"
+    },
+    {
+      "path": "type_iou_percent_upper.parquet",
+      "bytes": 17698,
+      "sha256": "a9cac624ce3b5dda8287a38cbbe5cad9cc9420dd3ce60cf3f1803dc44910eed8"
+    },
+    {
+      "path": "type_iou_percent_upper_all_languages.csv",
+      "bytes": 4125,
+      "sha256": "7fb895c89c6fffccf550ef27c0b5e1e06bc0a21a48232101b70367bc61283d45"
+    },
+    {
+      "path": "type_iou_percent_upper_all_languages.parquet",
+      "bytes": 17699,
+      "sha256": "2c60395639a42afcbee04916e6e17229bd1a92409cec3b6b3ceb3b6fc23b52b8"
+    },
+    {
+      "path": "validation_report.json",
+      "bytes": 3055,
+      "sha256": "85b8657bd5e854fcd2ff20c033e379b762ef7b158269167d17ec07631c5eea98"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+task_family,eng_Latn,deu_Latn,nld_Latn,swe_Latn,spa_Latn,fra_Latn,ita_Latn,por_Latn,ron_Latn,ind_Latn,zsm_Latn,tgl_Latn,pol_Latn,hun_Latn,tur_Latn,vie_Latn,arb_Arab,hin_Deva,guj_Gujr,rus_Cyrl,tha_Thai,zho_Hans,jpn_Jpan,kor_Hang
+sts,True,True,True,False,True,True,True,False,False,True,False,False,True,False,True,False,True,True,True,True,False,True,True,True
+retrieval,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True
+classification,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True
+clustering,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True
+reranking,True,True,True,True,False,True,True,True,True,False,False,False,False,False,False,False,False,True,False,True,False,True,True,False

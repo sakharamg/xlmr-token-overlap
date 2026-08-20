@@ -1,0 +1,17 @@
+condition,language_code,language,label,script,family,visual_group,examples,encoded_token_count,analysis_token_count,unique_analysis_token_count,vocabulary_coverage_percent,special_token_count,control_token_count,unknown_token_count,unknown_rate_percent,mean_analysis_tokens_per_example
+sts,eng_Latn,English,EN,Latin,Germanic,Germanic Latin,81,2950,2950,1183,0.47320568,0,0,0,0.00000000,36.41975309
+sts,deu_Latn,German,DE,Latin,Germanic,Germanic Latin,7,2944,2944,1124,0.44960540,0,0,0,0.00000000,420.57142857
+sts,nld_Latn,Dutch,NL,Latin,Germanic,Germanic Latin,250,2951,2951,857,0.34280411,0,0,0,0.00000000,11.80400000
+sts,spa_Latn,Spanish,ES,Latin,Romance,Romance Latin,7,2928,2928,1100,0.44000528,0,0,0,0.00000000,418.28571429
+sts,fra_Latn,French,FR,Latin,Romance,Romance Latin,5,2932,2932,1186,0.47440569,0,0,0,0.00000000,586.40000000
+sts,ita_Latn,Italian,IT,Latin,Romance,Romance Latin,7,2932,2932,1165,0.46600559,0,0,0,0.00000000,418.85714286
+sts,ind_Latn,Indonesian,ID,Latin,Austronesian,Austronesian Latin,149,2951,2951,1507,0.60280723,0,0,0,0.00000000,19.80536913
+sts,pol_Latn,Polish,PL,Latin,Slavic,Other Latin,7,2951,2951,1244,0.49760597,0,0,0,0.00000000,421.57142857
+sts,tur_Latn,Turkish,TR,Latin,Turkic,Other Latin,6,2943,2943,1182,0.47280567,0,0,0,0.00000000,490.50000000
+sts,arb_Arab,Arabic,AR,Arabic,Semitic,Other scripts,10,2923,2923,1230,0.49200590,0,0,0,0.00000000,292.30000000
+sts,hin_Deva,Hindi,HI,Devanagari,Indo-Aryan,Other scripts,132,2951,2951,1159,0.46360556,0,0,0,0.00000000,22.35606061
+sts,guj_Gujr,Gujarati,GU,Gujarati,Indo-Aryan,Other scripts,149,2949,2949,1085,0.43400521,0,0,0,0.00000000,19.79194631
+sts,rus_Cyrl,Russian,RU,Cyrillic,Slavic,Other scripts,8,2933,2933,1342,0.53680644,0,0,0,0.00000000,366.62500000
+sts,zho_Hans,Simplified Chinese,ZH,Han,Sinitic,Other scripts,8,2948,2941,1175,0.47000564,7,0,7,0.23744912,367.62500000
+sts,jpn_Jpan,Japanese,JA,Japanese,Japonic,Other scripts,211,2949,2949,706,0.28240339,0,0,0,0.00000000,13.97630332
+sts,kor_Hang,Korean,KO,Hangul,Koreanic,Other scripts,167,2951,2951,1093,0.43720525,0,0,0,0.00000000,17.67065868
