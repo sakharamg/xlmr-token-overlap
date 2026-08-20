@@ -1,0 +1,3 @@
+# Data-loader environment for the pinned MTEB Multilingual v2 corpus pass.
+datasets==5.0.1
+socksio==1.0.0

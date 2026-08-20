@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from .io import load_flores, load_jsonl, prepare_flores
+from .io import load_flores, load_jsonl, prepare_flores, prepare_tokenizer
 from .pipeline import run_analysis
 from .validation import validate_results
 
@@ -42,6 +42,17 @@ def build_parser() -> argparse.ArgumentParser:
     all_flores.add_argument("--source-dir", type=_path, default=_path("data"))
     all_flores.add_argument("--output-dir", type=_path, default=_path("results/flores"))
 
+    all_mteb = subparsers.add_parser(
+        "all-mteb",
+        help="Prepare, run, compare, and validate the pinned MTEB Multilingual v2 pass",
+    )
+    all_mteb.add_argument("--source-dir", type=_path, default=_path("data"))
+    all_mteb.add_argument("--output-dir", type=_path, default=_path("results/mteb"))
+    all_mteb.add_argument("--flores-dir", type=_path, default=_path("results/flores"))
+    all_mteb.add_argument("--family-token-budget", type=int, default=20_000)
+    all_mteb.add_argument("--overall-token-budget", type=int, default=30_000)
+    all_mteb.add_argument("--seed", type=int, default=1729)
+
     run_jsonl = subparsers.add_parser(
         "run-jsonl", help="Analyze Pass-2/3 interchange rows by independent condition"
     )
@@ -71,6 +82,22 @@ def main(argv: list[str] | None = None) -> None:
         paths = prepare_flores(args.source_dir)
         records, provenance = load_flores(paths["flores_root"])
         run_analysis(records, paths["tokenizer_json"], args.output_dir, provenance)
+    elif args.command == "all-mteb":
+        if args.family_token_budget <= 0 or args.overall_token_budget <= 0:
+            raise ValueError("MTEB token budgets must be positive")
+        from .mteb_data import run_mteb
+
+        tokenizer_json = prepare_tokenizer(args.source_dir)
+        result = run_mteb(
+            tokenizer_json=tokenizer_json,
+            cache_dir=args.source_dir / "mteb-cache",
+            output_dir=args.output_dir,
+            flores_dir=args.flores_dir,
+            family_token_budget=args.family_token_budget,
+            overall_token_budget=args.overall_token_budget,
+            seed=args.seed,
+        )
+        print(json.dumps(result, indent=2))
     elif args.command == "run-jsonl":
         records, provenance = load_jsonl(args.input)
         run_analysis(
@@ -85,4 +112,3 @@ def main(argv: list[str] | None = None) -> None:
         print(json.dumps(report, indent=2))
     else:  # pragma: no cover - argparse enforces the command set
         raise AssertionError(args.command)
-

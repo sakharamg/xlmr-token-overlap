@@ -151,7 +151,7 @@ Across unordered off-diagonal pairs, mean token-type IoU is
 
 The strongest observed pair is `{strongest['language_i']}`–`{strongest['language_j']}`
 at {strongest['type_iou_percent']:.2f}% type IoU. This is descriptive evidence
-about tokenizer sharing under content-matched FLORES text; it is not evidence
+about tokenizer sharing in this condition's observed text; it is not evidence
 that overlap caused the Stage-2 score changes.
 
 ## Highest token-type overlaps
@@ -160,10 +160,9 @@ that overlap caused the Stage-2 score changes.
 
 ## Interpretation boundary
 
-These matrices should be frozen and compared with independent MTEB task-family
-matrices before Stage-1 → Stage-2 deltas are joined. Script, family, tokenizer
-coverage, training exposure, and task/domain distribution remain confounded at
-this stage.
+These matrices should be frozen and compared across independent data
+conditions before Stage-1 → Stage-2 deltas are joined. Script, family,
+tokenizer coverage, training exposure, and task/domain distribution remain
+confounded at this stage.
 """
     path.write_text(text, encoding="utf-8")
-

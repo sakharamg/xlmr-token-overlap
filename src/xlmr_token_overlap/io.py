@@ -164,6 +164,14 @@ def prepare_flores(source_dir: Path) -> dict[str, Path]:
     }
 
 
+def prepare_tokenizer(source_dir: Path) -> Path:
+    """Download only the pinned XLM-R tokenizer used by every data pass."""
+
+    tokenizer_json = source_dir / "tokenizers" / "xlm-roberta-base" / "tokenizer.json"
+    _download(XLMR_TOKENIZER_URL, tokenizer_json, XLMR_TOKENIZER_SHA256)
+    return tokenizer_json
+
+
 def load_flores(flores_root: Path, splits: Iterable[str] = ("dev", "devtest")) -> tuple[list[Record], dict]:
     """Load all selected languages and strictly verify parallel alignment."""
 

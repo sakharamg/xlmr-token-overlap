@@ -58,3 +58,9 @@ XLMR_TOKENIZER_URL = (
 )
 XLMR_TOKENIZER_SHA256 = "a898ea75433890f6610f4e470b8ebeb0c21dce5c8dd61f892eb09eb5919d2e2c"
 
+# Snapshot used to resolve the official MTEB(Multilingual, v2) inventory.
+# Individual dataset revisions are frozen in mteb_data.py.
+MTEB_VERSION = "2.19.5"
+MTEB_SOURCE_REVISION = "0adc124417f74e56fd974eb3c64856b8a9e12196"
+MTEB_BENCHMARK = "MTEB(Multilingual, v2)"
+MTEB_FAMILIES = ("sts", "retrieval", "classification", "clustering", "reranking")

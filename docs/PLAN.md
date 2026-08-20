@@ -32,7 +32,7 @@ The same frozen definitions are used in every pass:
 6. Validate shape, order, bounds, symmetry, diagonals, upper-triangle masking,
    and count identities.
 
-## Phase 2 — MTEB Multilingual v2 (interface ready; loader next)
+## Phase 2 — MTEB Multilingual v2 (implemented)
 
 1. Resolve the exact MTEB v2 task inventory and map datasets independently to
    `mteb/sts`, `mteb/retrieval`, `mteb/classification`, `mteb/clustering`, and
@@ -45,10 +45,14 @@ The same frozen definitions are used in every pass:
    task families.
 4. Run the unchanged metrics engine once per family.
 5. Compare each family matrix with FLORES using pairwise Spearman correlation,
-   mean absolute difference, rank stability, and cluster stability.
+   mean absolute difference, signed difference, and cross-condition rank
+   stability.
 
-The generic command already accepts multiple independent `condition` values,
-so Phase 2 changes data ingestion—not metric code.
+The implemented pass uses a coverage-balanced slice of official benchmark
+tasks. Classification, clustering, and retrieval cover all 24 languages; STS
+and reranking retain their official 16/24 and 12/24 coverage as explicit NA
+cells in 24×24 masked views. See [`MTEB_PROTOCOL.md`](MTEB_PROTOCOL.md) for the
+frozen source revisions, text roles, and sampling rules.
 
 ## Phase 3 — balanced STS/retrieval-like data
 
@@ -62,4 +66,3 @@ frozen.  Test descriptive associations with average type IoU, directional
 frequency overlap, exposure-weighted overlap to Stage-2 languages, script, and
 family.  Report uncertainty and confounds; do not infer causality from a
 correlation.
-

@@ -69,6 +69,12 @@ class AuditedTokenizer:
             "padding": False,
         }
 
+    def analysis_length(self, text: str) -> int:
+        """Count eligible tokens in one unmodified text for budget sampling."""
+
+        encoding = self.tokenizer.encode(text, add_special_tokens=False)
+        return sum(token_id not in self.special_ids for token_id in encoding.ids)
+
     def count(self, language_code: str, records: Iterable[Record]) -> LanguageTokens:
         rows = list(records)
         encodings = self.tokenizer.encode_batch(

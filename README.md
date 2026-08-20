@@ -3,9 +3,9 @@
 Reproducible 24-language matrices for testing whether XLM-R tokenizer sharing
 is a plausible correlate of multilingual Stage-2 performance degradation.
 
-The repository currently completes **Pass 1 on FLORES-200** and keeps the
-metric engine data-source agnostic for **Pass 2 on MTEB Multilingual v2**. It
-does not claim that overlap causes a performance change.
+The repository completes **Pass 1 on FLORES-200** and implements **Pass 2 on a
+coverage-balanced task slice of MTEB Multilingual v2**. It does not claim that
+overlap causes a performance change.
 
 ## Checked-in FLORES result
 
@@ -83,7 +83,44 @@ The matrix row order is Germanic Latin, Romance Latin, Austronesian Latin,
 other Latin-script languages, then the eight non-Latin-script languages.
 `language_key.csv` is the authoritative label mapping.
 
-## Pass 2 interface: keep MTEB task families separate
+## Pass 2: MTEB Multilingual v2
+
+The pinned MTEB pass produces `overall` plus five independent task-family
+conditions. Classification, clustering, and retrieval cover all 24 requested
+languages. The official task inventory provides usable STS data for 16 and
+reranking data for 12; unsupported cells remain NA in full 24×24 views rather
+than being imputed.
+
+| Condition | Language coverage | Main source design |
+|---|---:|---|
+| Overall | 24/24 | Rebalanced selected family records |
+| STS | 16/24 | Five official STS tasks |
+| Retrieval | 24/24 | Belebele questions and passages |
+| Classification | 24/24 | MASSIVE plus Gujarati News |
+| Clustering | 24/24 | SIB-200 |
+| Reranking | 12/24 | Six official reranking tasks |
+
+Reproduce the pass with:
+
+```bash
+pip install -r requirements-lock.txt
+pip install -r requirements-mteb.txt
+pip install -e . --no-deps
+xlmr-token-overlap all-mteb \
+  --source-dir data \
+  --output-dir results/mteb \
+  --flores-dir results/flores \
+  --family-token-budget 20000 \
+  --overall-token-budget 30000 \
+  --seed 1729
+```
+
+The loader resolves the official benchmark at `mteb==2.19.5`, pins every
+selected dataset revision, streams only selected configurations, applies
+deterministic complete-record XLM-R token budgets, and commits no raw text.
+See [`docs/MTEB_PROTOCOL.md`](docs/MTEB_PROTOCOL.md).
+
+## Generic Pass 2/3 interface
 
 The generic runner accepts JSON Lines with one text-bearing input per row:
 
@@ -99,10 +136,9 @@ xlmr-token-overlap run-jsonl \
   --output-dir results/mteb
 ```
 
-Every `condition` is tokenized and written independently, so STS, retrieval,
-classification, clustering, and reranking cannot be accidentally pooled. The
-next implementation step is a version-pinned MTEB exporter with deterministic
-per-family, per-language XLM-R token budgets. See [`docs/PLAN.md`](docs/PLAN.md).
+Every `condition` is tokenized and written independently, so custom STS,
+retrieval, classification, clustering, and reranking corpora cannot be
+accidentally pooled. See [`docs/PLAN.md`](docs/PLAN.md).
 
 ## Validate or test
 

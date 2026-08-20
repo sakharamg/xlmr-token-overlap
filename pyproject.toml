@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "xlmr-token-overlap"
-version = "0.1.0"
+version = "0.2.0"
 description = "Reproducible cross-lingual XLM-R tokenizer-overlap analysis"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -18,9 +18,14 @@ dependencies = [
   "tokenizers==0.22.1",
 ]
 
+[project.optional-dependencies]
+mteb = [
+  "datasets==5.0.1",
+  "socksio==1.0.0",
+]
+
 [project.scripts]
 xlmr-token-overlap = "xlmr_token_overlap.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
