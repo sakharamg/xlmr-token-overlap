@@ -1,9 +1,12 @@
 import unittest
 
+import pandas as pd
+
 from xlmr_token_overlap.constants import LANGUAGE_CODES, MTEB_FAMILIES
 from xlmr_token_overlap.mteb_data import (
     EXPECTED_FAMILY_LANGUAGES,
     Candidate,
+    _spearman_correlation,
     build_balanced_records,
     select_token_budget,
 )
@@ -24,6 +27,11 @@ def _candidate(family, code, index, tokens=100):
 
 
 class MtebSamplingTests(unittest.TestCase):
+    def test_spearman_correlation_handles_alignment_and_ties_without_scipy(self):
+        left = pd.Series({"a": 1.0, "b": 2.0, "c": 2.0, "d": 4.0})
+        right = pd.Series({"d": 1.0, "c": 3.0, "b": 3.0, "a": 5.0, "x": 9.0})
+        self.assertAlmostEqual(_spearman_correlation(left, right), -1.0)
+
     def test_expected_coverage_matches_protocol(self):
         for family in ("classification", "clustering", "retrieval"):
             self.assertEqual(EXPECTED_FAMILY_LANGUAGES[family], frozenset(LANGUAGE_CODES))
