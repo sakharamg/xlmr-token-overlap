@@ -119,7 +119,22 @@ All six task conditions have lower mean pairwise IoU than FLORES, by 5.36 to
 performance result. The balanced STS budget is 2,951 tokens per supported
 language because the smallest official language slice sets the common cap.
 
-![MTEB overall XLM-R token-type IoU](results/mteb/overall/heatmaps/type_iou_upper.png)
+### MTEB overall IoU heatmap
+
+![MTEB overall XLM-R token-type IoU](results/mteb/overall/heatmaps_all_languages/type_iou_upper.png)
+
+### MTEB task-wise IoU heatmaps
+
+All task heatmaps use the same frozen 24-language axes as FLORES. Blank cells
+in STS and reranking indicate languages without official task coverage.
+
+| STS | Retrieval |
+|---|---|
+| ![MTEB STS XLM-R token-type IoU](results/mteb/sts/heatmaps_all_languages/type_iou_upper.png) | ![MTEB retrieval XLM-R token-type IoU](results/mteb/retrieval/heatmaps_all_languages/type_iou_upper.png) |
+| **Classification** | **Clustering** |
+| ![MTEB classification XLM-R token-type IoU](results/mteb/classification/heatmaps_all_languages/type_iou_upper.png) | ![MTEB clustering XLM-R token-type IoU](results/mteb/clustering/heatmaps_all_languages/type_iou_upper.png) |
+| **Reranking** | |
+| ![MTEB reranking XLM-R token-type IoU](results/mteb/reranking/heatmaps_all_languages/type_iou_upper.png) | |
 
 See [`results/mteb/REPORT.md`](results/mteb/REPORT.md) for the complete summary
 and [`results/mteb`](results/mteb) for all CSV, Parquet, validation, provenance,
