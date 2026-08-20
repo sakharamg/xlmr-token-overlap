@@ -100,6 +100,31 @@ than being imputed.
 | Clustering | 24/24 | SIB-200 |
 | Reranking | 12/24 | Six official reranking tasks |
 
+The checked-in run passes all **55/55 aggregate checks**, in addition to the
+28 native matrix invariants applied independently to every condition. Its
+strongest observed token-type IoU pairs are:
+
+| Condition | Strongest pair | Type IoU | Spearman vs. FLORES |
+|---|---|---:|---:|
+| Overall | Indonesian–Malay | 39.13% | 0.946 |
+| STS | Spanish–Italian | 7.09% | 0.780 |
+| Retrieval | Indonesian–Malay | 38.48% | 0.935 |
+| Classification | Indonesian–Malay | 34.11% | 0.749 |
+| Clustering | Indonesian–Malay | 46.64% | 0.982 |
+| Reranking | Italian–Romanian | 14.93% | 0.780 |
+
+The rank ordering is most stable against FLORES for clustering and overall.
+All six task conditions have lower mean pairwise IoU than FLORES, by 5.36 to
+7.75 percentage points; that is descriptive corpus evidence, not a causal
+performance result. The balanced STS budget is 2,951 tokens per supported
+language because the smallest official language slice sets the common cap.
+
+![MTEB overall XLM-R token-type IoU](results/mteb/overall/heatmaps/type_iou_upper.png)
+
+See [`results/mteb/REPORT.md`](results/mteb/REPORT.md) for the complete summary
+and [`results/mteb`](results/mteb) for all CSV, Parquet, validation, provenance,
+masked 24×24 matrices, and task-family heatmaps.
+
 Reproduce the pass with:
 
 ```bash
