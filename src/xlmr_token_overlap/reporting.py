@@ -6,7 +6,6 @@ import json
 from itertools import combinations
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 from .constants import LANGUAGE_BY_CODE
@@ -49,21 +48,50 @@ def build_descriptive_outputs(metrics, output_dir: Path) -> dict:
                 "absolute_gap_points": abs(forward - reverse),
             }
         )
-    unordered = pd.DataFrame(unordered_rows)
-    asymmetry = pd.DataFrame(asymmetry_rows).sort_values(
-        "absolute_gap_points", ascending=False
+    unordered = pd.DataFrame(
+        unordered_rows,
+        columns=(
+            "language_i",
+            "language_j",
+            "relation",
+            "type_iou_percent",
+            "shared_token_count",
+            "frequency_i_to_j_percent",
+            "frequency_j_to_i_percent",
+        ),
     )
+    asymmetry = pd.DataFrame(
+        asymmetry_rows,
+        columns=(
+            "language_i",
+            "language_j",
+            "frequency_i_to_j_percent",
+            "frequency_j_to_i_percent",
+            "absolute_gap_points",
+        ),
+    ).sort_values("absolute_gap_points", ascending=False)
     top_pairs = unordered.sort_values("type_iou_percent", ascending=False).head(30)
-    relation_summary = (
-        unordered.groupby("relation", sort=False)
-        .agg(
-            pairs=("type_iou_percent", "size"),
-            mean_type_iou_percent=("type_iou_percent", "mean"),
-            median_type_iou_percent=("type_iou_percent", "median"),
-            mean_shared_token_count=("shared_token_count", "mean"),
+    if unordered.empty:
+        relation_summary = pd.DataFrame(
+            columns=(
+                "relation",
+                "pairs",
+                "mean_type_iou_percent",
+                "median_type_iou_percent",
+                "mean_shared_token_count",
+            )
         )
-        .reset_index()
-    )
+    else:
+        relation_summary = (
+            unordered.groupby("relation", sort=False)
+            .agg(
+                pairs=("type_iou_percent", "size"),
+                mean_type_iou_percent=("type_iou_percent", "mean"),
+                median_type_iou_percent=("type_iou_percent", "median"),
+                mean_shared_token_count=("shared_token_count", "mean"),
+            )
+            .reset_index()
+        )
 
     group_rows: list[dict] = []
     for row in unordered_rows:
@@ -71,16 +99,27 @@ def build_descriptive_outputs(metrics, output_dir: Path) -> dict:
         right_group = LANGUAGE_BY_CODE[row["language_j"]].visual_group
         group_i, group_j = sorted((left_group, right_group))
         group_rows.append({**row, "group_i": group_i, "group_j": group_j})
-    group_summary = (
-        pd.DataFrame(group_rows)
-        .groupby(["group_i", "group_j"], sort=False)
-        .agg(
-            pairs=("type_iou_percent", "size"),
-            mean_type_iou_percent=("type_iou_percent", "mean"),
-            median_type_iou_percent=("type_iou_percent", "median"),
+    if group_rows:
+        group_summary = (
+            pd.DataFrame(group_rows)
+            .groupby(["group_i", "group_j"], sort=False)
+            .agg(
+                pairs=("type_iou_percent", "size"),
+                mean_type_iou_percent=("type_iou_percent", "mean"),
+                median_type_iou_percent=("type_iou_percent", "median"),
+            )
+            .reset_index()
         )
-        .reset_index()
-    )
+    else:
+        group_summary = pd.DataFrame(
+            columns=(
+                "group_i",
+                "group_j",
+                "pairs",
+                "mean_type_iou_percent",
+                "median_type_iou_percent",
+            )
+        )
 
     top_pairs.to_csv(output_dir / "top_type_iou_pairs.csv", index=False, float_format="%.6f")
     asymmetry.head(30).to_csv(
@@ -106,8 +145,12 @@ def build_descriptive_outputs(metrics, output_dir: Path) -> dict:
         "unique_tokens_max": int(stats["unique_analysis_token_count"].max()),
         "unknown_tokens_total": int(stats["unknown_token_count"].sum()),
         "relation_summaries": relation_lookup,
-        "strongest_type_iou_pair": top_pairs.iloc[0].to_dict(),
-        "largest_frequency_asymmetry": asymmetry.iloc[0].to_dict(),
+        "strongest_type_iou_pair": (
+            top_pairs.iloc[0].to_dict() if not top_pairs.empty else None
+        ),
+        "largest_frequency_asymmetry": (
+            asymmetry.iloc[0].to_dict() if not asymmetry.empty else None
+        ),
     }
     (output_dir / "summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
@@ -118,9 +161,6 @@ def build_descriptive_outputs(metrics, output_dir: Path) -> dict:
 
 def _write_report(summary: dict, top_pairs: pd.DataFrame, path: Path) -> None:
     relations = summary["relation_summaries"]
-    latin = relations["within Latin-script"]
-    cross = relations["Latin ↔ non-Latin"]
-    non_latin = relations["within non-Latin scripts"]
     strongest = summary["strongest_type_iou_pair"]
 
     table_lines = [
@@ -132,6 +172,43 @@ def _write_report(summary: dict, top_pairs: pd.DataFrame, path: Path) -> None:
             f"| {row.language_i} – {row.language_j} | {row.type_iou_percent:.2f}% | {row.shared_token_count:,} |"
         )
 
+    if strongest is None:
+        pair_analysis = """## Pairwise structure
+
+This condition contains fewer than two languages. Full tokenization and
+per-language vocabulary statistics are emitted, but no off-diagonal
+cross-language pair exists.
+"""
+    else:
+        latin = relations.get("within Latin-script")
+        cross = relations.get("Latin ↔ non-Latin")
+        non_latin = relations.get("within non-Latin scripts")
+        relation_lines = []
+        for label, value in (
+            ("within Latin-script languages", latin),
+            ("for Latin/non-Latin pairs", cross),
+            ("within the non-Latin set", non_latin),
+        ):
+            if value is not None:
+                relation_lines.append(
+                    f"- {label}: {value['mean_type_iou_percent']:.2f}%"
+                )
+        pair_analysis = f"""## Script-level structure
+
+Mean token-type IoU across available relation groups:
+
+{chr(10).join(relation_lines)}
+
+The strongest observed pair is `{strongest['language_i']}`–`{strongest['language_j']}`
+at {strongest['type_iou_percent']:.2f}% type IoU. This is descriptive evidence
+about tokenizer sharing in this condition's observed text; it is not evidence
+that overlap caused the Stage-2 score changes.
+
+## Highest token-type overlaps
+
+{chr(10).join(table_lines)}
+"""
+
     text = f"""# {summary['condition']} descriptive report
 
 ## Run coverage
@@ -142,21 +219,7 @@ def _write_report(summary: dict, top_pairs: pd.DataFrame, path: Path) -> None:
 - Unique observed analysis tokens: {summary['unique_tokens_min']:,}–{summary['unique_tokens_max']:,}
 - Unknown-token occurrences: {summary['unknown_tokens_total']:,}
 
-## Script-level structure
-
-Across unordered off-diagonal pairs, mean token-type IoU is
-{latin['mean_type_iou_percent']:.2f}% within Latin-script languages,
-{cross['mean_type_iou_percent']:.2f}% for Latin/non-Latin pairs, and
-{non_latin['mean_type_iou_percent']:.2f}% within the non-Latin set.
-
-The strongest observed pair is `{strongest['language_i']}`–`{strongest['language_j']}`
-at {strongest['type_iou_percent']:.2f}% type IoU. This is descriptive evidence
-about tokenizer sharing in this condition's observed text; it is not evidence
-that overlap caused the Stage-2 score changes.
-
-## Highest token-type overlaps
-
-{chr(10).join(table_lines)}
+{pair_analysis}
 
 ## Interpretation boundary
 

@@ -37,7 +37,26 @@ class TokenizationTests(unittest.TestCase):
             self.assertEqual(counts.special_token_count, 1)
             self.assertEqual(counts.counts, {1: 1, 2: 1})
 
+    def test_long_text_is_encoded_completely_without_truncation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "tokenizer.json"
+            tokenizer = Tokenizer(
+                WordLevel({"<unk>": 0, "hello": 1}, unk_token="<unk>")
+            )
+            tokenizer.pre_tokenizer = Whitespace()
+            tokenizer.add_special_tokens([AddedToken("<unk>", special=True)])
+            tokenizer.save(str(path))
+
+            text = " ".join(["hello"] * 5_000)
+            audited = AuditedTokenizer(path)
+            counts = audited.count(
+                "eng_Latn",
+                [Record("test", "eng_Latn", text, "long", "test")],
+            )
+            self.assertEqual(counts.encoded_token_count, 5_000)
+            self.assertEqual(counts.analysis_token_count, 5_000)
+            self.assertEqual(counts.counts, {1: 5_000})
+
 
 if __name__ == "__main__":
     unittest.main()
-

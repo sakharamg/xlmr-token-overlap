@@ -3,9 +3,10 @@
 Reproducible 24-language matrices for testing whether XLM-R tokenizer sharing
 is a plausible correlate of multilingual Stage-2 performance degradation.
 
-The repository completes **Pass 1 on FLORES-200** and implements **Pass 2 on a
-coverage-balanced task slice of MTEB Multilingual v2**. It does not claim that
-overlap causes a performance change.
+The repository completes **Pass 1 on FLORES-200**, implements and runs **Pass 2
+on a coverage-balanced task slice of MTEB Multilingual v2**, and implements the
+full-corpus runners for the local **Pass 3 STS/Belebele data** and **SQE**.
+It does not claim that overlap causes a performance change.
 
 ## Checked-in FLORES result
 
@@ -159,6 +160,71 @@ The loader resolves the official benchmark at `mteb==2.19.5`, pins every
 selected dataset revision, streams only selected configurations, applies
 deterministic complete-record XLM-R token budgets, and commits no raw text.
 See [`docs/MTEB_PROTOCOL.md`](docs/MTEB_PROTOCOL.md).
+
+## Pass 3: translated STS and Belebele retrieval
+
+The local Pass-3 runner uses all 24 languages and emits three independent
+conditions:
+
+| Condition | Included text |
+|---|---|
+| STS | every `sentence1` and `sentence2` |
+| Retrieval | every query-row `text` and corpus-row `text`, once per row |
+| Overall | the complete STS + retrieval union |
+
+There is no character limit, tokenizer truncation, row sampling, or token-budget
+sampling. Every complete text cell is passed to the same exact tokenizer.
+Qrels validate the retrieval links but do not repeat query/document text.
+
+```bash
+xlmr-token-overlap all-pass3 \
+  --datasets-root /group-volume/SSCore/User_Data/Sanskar/Benchmarking/SR_Gauss_24/model-orchestration/cache/datasets \
+  --tokenizer-json data/tokenizers/xlm-roberta-base/tokenizer.json \
+  --output-dir results/pass3 \
+  --flores-dir results/flores
+```
+
+The command creates overall and task-wise matrices and heatmaps at
+`results/pass3/{overall,sts,retrieval}`, plus comparisons against FLORES.
+The audited STS files have all 24 languages but are not strictly row-aligned:
+Hindi, Japanese, Korean, and Thai have different row counts and no stable ID
+column exists. This is retained as a full-corpus distributional condition,
+rather than silently dropping or fabricating rows.
+
+## SQE
+
+SQE is analyzed separately from Pass 3 because its domain coverage is uneven.
+
+| Domain | Coverage | Conditions |
+|---|---:|---|
+| Settings | 24/24 | standard |
+| Notes | 16/24 | standard, contextual, contextual-drop-time |
+| Calendar | Korean only | all three variants |
+| Call recording | Korean only | all three variants |
+| Reminder | Korean only | all three variants |
+| Voice recording | Korean only | all three variants |
+
+Within each condition, every `data.text` and test-case `query` cell is encoded
+in full. `gt_ids` validates query-to-data linkage and `remark` remains
+metadata. There is intentionally no pooled SQE-overall condition because that
+would confound language with domain coverage. `settings_standard` is the
+complete 24-language SQE comparison; partial conditions receive masked 24×24
+views.
+
+```bash
+xlmr-token-overlap all-sqe \
+  --datasets-root /group-volume/SSCore/User_Data/Sanskar/Benchmarking/SR_Gauss_24/model-orchestration/cache/datasets \
+  --tokenizer-json data/tokenizers/xlm-roberta-base/tokenizer.json \
+  --output-dir results/sqe \
+  --flores-dir results/flores
+```
+
+The default runs every domain and variant, including full token diagnostics for
+Korean-only conditions. See
+[`docs/PASS3_SQE_PROTOCOL.md`](docs/PASS3_SQE_PROTOCOL.md) for the frozen input
+contract, full-text policy, coverage rules, and outputs. Results and README
+heatmaps can be checked in after the private-data run; raw source text is never
+committed.
 
 ## Generic Pass 2/3 interface
 

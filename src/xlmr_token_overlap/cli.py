@@ -53,6 +53,44 @@ def build_parser() -> argparse.ArgumentParser:
     all_mteb.add_argument("--overall-token-budget", type=int, default=30_000)
     all_mteb.add_argument("--seed", type=int, default=1729)
 
+    all_pass3 = subparsers.add_parser(
+        "all-pass3",
+        help="Run the full local translated-STS and Belebele Pass-3 suite",
+    )
+    all_pass3.add_argument("--datasets-root", type=_path, required=True)
+    all_pass3.add_argument("--source-dir", type=_path, default=_path("data"))
+    all_pass3.add_argument("--tokenizer-json", type=_path)
+    all_pass3.add_argument("--output-dir", type=_path, default=_path("results/pass3"))
+    all_pass3.add_argument("--flores-dir", type=_path, default=_path("results/flores"))
+
+    all_sqe = subparsers.add_parser(
+        "all-sqe",
+        help="Run full-text SQE overlap independently by domain and query variant",
+    )
+    all_sqe.add_argument("--datasets-root", type=_path, required=True)
+    all_sqe.add_argument("--source-dir", type=_path, default=_path("data"))
+    all_sqe.add_argument("--tokenizer-json", type=_path)
+    all_sqe.add_argument("--output-dir", type=_path, default=_path("results/sqe"))
+    all_sqe.add_argument("--flores-dir", type=_path, default=_path("results/flores"))
+    all_sqe.add_argument(
+        "--domains",
+        nargs="+",
+        choices=(
+            "calendar",
+            "call_recording",
+            "notes",
+            "reminder",
+            "settings",
+            "voice_recording",
+        ),
+        help="Optional domain subset; default analyzes every SQE domain.",
+    )
+    all_sqe.add_argument(
+        "--allow-coverage-drift",
+        action="store_true",
+        help="Accept locale/variant coverage different from the audited snapshot.",
+    )
+
     run_jsonl = subparsers.add_parser(
         "run-jsonl", help="Analyze Pass-2/3 interchange rows by independent condition"
     )
@@ -97,6 +135,27 @@ def main(argv: list[str] | None = None) -> None:
             overall_token_budget=args.overall_token_budget,
             seed=args.seed,
         )
+        print(json.dumps(result, indent=2))
+    elif args.command in {"all-pass3", "all-sqe"}:
+        from .local_data import run_pass3, run_sqe
+
+        tokenizer_json = args.tokenizer_json or prepare_tokenizer(args.source_dir)
+        if args.command == "all-pass3":
+            result = run_pass3(
+                datasets_root=args.datasets_root,
+                tokenizer_json=tokenizer_json,
+                output_dir=args.output_dir,
+                flores_dir=args.flores_dir,
+            )
+        else:
+            result = run_sqe(
+                datasets_root=args.datasets_root,
+                tokenizer_json=tokenizer_json,
+                output_dir=args.output_dir,
+                flores_dir=args.flores_dir,
+                domains=args.domains,
+                allow_coverage_drift=args.allow_coverage_drift,
+            )
         print(json.dumps(result, indent=2))
     elif args.command == "run-jsonl":
         records, provenance = load_jsonl(args.input)

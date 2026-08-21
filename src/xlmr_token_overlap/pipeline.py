@@ -86,6 +86,7 @@ def run_analysis(
     provenance: dict,
     *,
     require_all_languages: bool = True,
+    force_condition_subdirs: bool = False,
 ) -> dict[str, Path]:
     tokenizer = AuditedTokenizer(tokenizer_json)
     by_condition: dict[str, list[Record]] = defaultdict(list)
@@ -93,7 +94,7 @@ def run_analysis(
         by_condition[record.condition].append(record)
 
     destinations: dict[str, Path] = {}
-    multiple = len(by_condition) > 1
+    multiple = len(by_condition) > 1 or force_condition_subdirs
     for condition, condition_records in sorted(by_condition.items()):
         by_language: dict[str, list[Record]] = defaultdict(list)
         for record in condition_records:

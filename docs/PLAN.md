@@ -54,10 +54,28 @@ and reranking retain their official 16/24 and 12/24 coverage as explicit NA
 cells in 24×24 masked views. See [`MTEB_PROTOCOL.md`](MTEB_PROTOCOL.md) for the
 frozen source revisions, text roles, and sampling rules.
 
-## Phase 3 — balanced STS/retrieval-like data
+## Phase 3 — local translated STS/retrieval-like data (implemented)
 
-Use the same JSONL interface, keep STS-like and retrieval-like conditions
-separate initially, verify the supplied balance, and run the same engine.
+1. Read all 24 canonical STS Parquet files and retain every `sentence1` and
+   `sentence2` cell.
+2. Read all 24 canonical Belebele query and corpus files exactly once per row;
+   use qrels only for strict ID-link validation.
+3. Emit independent `sts`, `retrieval`, and full-union `overall` conditions.
+4. Do not apply character clipping, tokenizer truncation, row sampling, or
+   token-budget sampling. Report natural language-size differences.
+5. Compare each condition's pairwise IoU ordering against FLORES.
+
+STS row counts and score order are not uniform across all translations and no
+stable ID is present, so this is a full-corpus distributional pass rather than
+a row-aligned parallel pass.
+
+## SQE local suite (implemented)
+
+Analyze every `data.text` and test-case `query` cell independently by domain
+and query variant. Validate `gt_ids` against `data.id`; do not tokenize
+`gt_ids` or `remark`. Keep settings (24 languages), notes (16), and Korean-only
+domains separate. Do not create a pooled SQE overall condition because its
+uneven domain coverage would confound language and domain.
 
 ## Performance analysis (only after matrix validation)
 

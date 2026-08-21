@@ -8,8 +8,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
-from tokenizers import Tokenizer
-
 from .io import Record, portable_path, sha256
 
 
@@ -31,6 +29,8 @@ class LanguageTokens:
 
 class AuditedTokenizer:
     def __init__(self, tokenizer_json: Path) -> None:
+        from tokenizers import Tokenizer
+
         self.path = tokenizer_json
         self.raw = json.loads(tokenizer_json.read_text(encoding="utf-8"))
         self.tokenizer = Tokenizer.from_file(str(tokenizer_json))
@@ -70,16 +70,13 @@ class AuditedTokenizer:
         }
 
     def analysis_length(self, text: str) -> int:
-        """Count eligible tokens in one unmodified text for budget sampling."""
+        """Count eligible tokens in one complete, unmodified text."""
 
         encoding = self.tokenizer.encode(text, add_special_tokens=False)
         return sum(token_id not in self.special_ids for token_id in encoding.ids)
 
     def count(self, language_code: str, records: Iterable[Record]) -> LanguageTokens:
         rows = list(records)
-        encodings = self.tokenizer.encode_batch(
-            [record.text for record in rows], add_special_tokens=False
-        )
         counts: Counter[int] = Counter()
         split_examples: Counter[str] = Counter()
         split_encoded_tokens: Counter[str] = Counter()
@@ -89,21 +86,30 @@ class AuditedTokenizer:
         control_total = 0
         unknown_total = 0
 
-        for record, encoding in zip(rows, encodings, strict=True):
-            ids = encoding.ids
-            encoded_total += len(ids)
-            split_examples[record.split] += 1
-            split_encoded_tokens[record.split] += len(ids)
-            for token_id in ids:
-                if token_id in self.special_ids:
-                    special_total += 1
-                    if self.unknown_id is not None and token_id == self.unknown_id:
-                        unknown_total += 1
+        # Batch for bounded peak memory only. Each complete string is encoded
+        # with tokenizer truncation disabled; no text is clipped or split.
+        batch_size = 256
+        for start in range(0, len(rows), batch_size):
+            batch_rows = rows[start : start + batch_size]
+            encodings = self.tokenizer.encode_batch(
+                [record.text for record in batch_rows],
+                add_special_tokens=False,
+            )
+            for record, encoding in zip(batch_rows, encodings, strict=True):
+                ids = encoding.ids
+                encoded_total += len(ids)
+                split_examples[record.split] += 1
+                split_encoded_tokens[record.split] += len(ids)
+                for token_id in ids:
+                    if token_id in self.special_ids:
+                        special_total += 1
+                        if self.unknown_id is not None and token_id == self.unknown_id:
+                            unknown_total += 1
+                        else:
+                            control_total += 1
                     else:
-                        control_total += 1
-                else:
-                    counts[token_id] += 1
-                    split_analysis_tokens[record.split] += 1
+                        counts[token_id] += 1
+                        split_analysis_tokens[record.split] += 1
 
         return LanguageTokens(
             language_code=language_code,

@@ -1,8 +1,12 @@
+import json
+import tempfile
 import unittest
 from collections import Counter
+from pathlib import Path
 
 from xlmr_token_overlap.constants import LANGUAGES
 from xlmr_token_overlap.metrics import compute_metrics
+from xlmr_token_overlap.reporting import build_descriptive_outputs
 from xlmr_token_overlap.tokenization import LanguageTokens
 
 
@@ -64,7 +68,25 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(self.metrics.frequency_overlap.loc[right, right], 100.0)
         self.assertTrue(self.metrics.type_iou_upper.loc[right, left] != self.metrics.type_iou_upper.loc[right, left])
 
+    def test_single_language_condition_emits_diagnostics_without_pair(self):
+        language = LANGUAGES[-1]
+        tokens = {
+            language.code: _language_tokens(language.code, {10: 2, 11: 1})
+        }
+        metrics = compute_metrics(
+            "korean-only",
+            (language,),
+            tokens,
+            _Tokenizer(),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            summary = build_descriptive_outputs(metrics, output)
+            persisted = json.loads((output / "summary.json").read_text())
+            self.assertIsNone(summary["strongest_type_iou_pair"])
+            self.assertIsNone(persisted["largest_frequency_asymmetry"])
+            self.assertTrue((output / "REPORT.md").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
-
