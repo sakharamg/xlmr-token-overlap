@@ -11,7 +11,7 @@ import ast
 import hashlib
 import json
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
@@ -527,6 +527,7 @@ def collect_sqe_records(
     collection = CorpusCollection.empty()
     source_files = []
     integrity: dict[str, Any] = {}
+    data_id_integrity: dict[str, Any] = {}
     condition_coverage: defaultdict[str, set[str]] = defaultdict(set)
     observed_domain_coverage: defaultdict[str, set[str]] = defaultdict(set)
     observed_variants: defaultdict[str, set[str]] = defaultdict(set)
@@ -567,11 +568,47 @@ def collect_sqe_records(
                 _file_entry(data_path, root, data, sheet="data")
             )
             data_ids = [_id_key(value) for value in data["id"]]
-            if any(not value for value in data_ids):
-                raise ValueError(f"Empty SQE data ID in {data_path}")
-            if len(set(data_ids)) != len(data_ids):
-                raise ValueError(f"Duplicate SQE data IDs in {data_path}")
-            data_id_set = set(data_ids)
+            nonempty_data_ids = [value for value in data_ids if value]
+            data_id_counts = Counter(nonempty_data_ids)
+            empty_data_id_rows = len(data_ids) - len(nonempty_data_ids)
+            duplicate_data_id_values = sum(
+                count > 1 for count in data_id_counts.values()
+            )
+            duplicate_data_id_extra_rows = sum(
+                count - 1
+                for count in data_id_counts.values()
+                if count > 1
+            )
+            has_data_id_warning = bool(
+                empty_data_id_rows or duplicate_data_id_extra_rows
+            )
+            if strict_ground_truth and has_data_id_warning:
+                raise ValueError(
+                    f"SQE data-ID integrity failure in {data_path}: "
+                    f"empty_data_id_rows={empty_data_id_rows}, "
+                    f"duplicate_data_id_values={duplicate_data_id_values}, "
+                    "duplicate_data_id_extra_rows="
+                    f"{duplicate_data_id_extra_rows}"
+                )
+            if has_data_id_warning:
+                print(
+                    "[warning] SQE data-ID metadata anomaly in "
+                    f"{data_path}: empty_data_id_rows={empty_data_id_rows}, "
+                    f"duplicate_data_id_values={duplicate_data_id_values}, "
+                    "duplicate_data_id_extra_rows="
+                    f"{duplicate_data_id_extra_rows}; retaining every "
+                    "non-empty data text for tokenizer analysis"
+                )
+            data_id_set = set(nonempty_data_ids)
+            data_id_integrity[f"{domain}:{language_code}"] = {
+                "status": "warning" if has_data_id_warning else "passed",
+                "data_rows": len(data),
+                "nonempty_data_ids": len(nonempty_data_ids),
+                "unique_nonempty_data_ids": len(data_id_set),
+                "empty_data_id_rows": empty_data_id_rows,
+                "duplicate_data_id_values": duplicate_data_id_values,
+                "duplicate_data_id_extra_rows": duplicate_data_id_extra_rows,
+            }
 
             found_variant = False
             for filename, variant in SQE_VARIANTS.items():
@@ -639,7 +676,8 @@ def collect_sqe_records(
                         text=row["text"],
                         example_id=(
                             f"sqe:{domain}:{variant}:{label}:data:"
-                            f"{_id_key(row['id']) or row_index}"
+                            f"{row_index}:"
+                            f"{_id_key(row['id']) or 'no-id'}"
                         ),
                         split=f"sqe_{domain}|{variant}|data",
                         dataset=f"sqe_{domain}",
@@ -728,6 +766,28 @@ def collect_sqe_records(
             for details in integrity.values()
         ),
     }
+    data_id_warning_slices = sorted(
+        key
+        for key, details in data_id_integrity.items()
+        if details["status"] == "warning"
+    )
+    data_id_summary = {
+        "strict_mode": strict_ground_truth,
+        "slices_with_warnings": len(data_id_warning_slices),
+        "warning_slices": data_id_warning_slices,
+        "empty_data_id_rows": sum(
+            details["empty_data_id_rows"]
+            for details in data_id_integrity.values()
+        ),
+        "duplicate_data_id_values": sum(
+            details["duplicate_data_id_values"]
+            for details in data_id_integrity.values()
+        ),
+        "duplicate_data_id_extra_rows": sum(
+            details["duplicate_data_id_extra_rows"]
+            for details in data_id_integrity.values()
+        ),
+    }
     audit = {
         "dataset": "SQE canonical workbooks",
         "analysis_scope": "all non-empty data.text and test-case query cells",
@@ -749,6 +809,8 @@ def collect_sqe_records(
             domain: sorted(variants)
             for domain, variants in sorted(observed_variants.items())
         },
+        "data_id_summary": data_id_summary,
+        "data_id_integrity": data_id_integrity,
         "ground_truth_summary": ground_truth_summary,
         "ground_truth_integrity": integrity,
         "source_files": source_files,
@@ -897,6 +959,7 @@ def _write_sqe_report(
             f"{spearman_text} |"
         )
     ground_truth = audit["ground_truth_summary"]
+    data_ids = audit["data_id_summary"]
     text = f"""# SQE tokenizer-overlap suite
 
 Every non-empty data.text and test-case query cell is analyzed in full. There
@@ -907,6 +970,11 @@ audit found {ground_truth['empty_gt_rows']} empty gt_ids row(s) and
 {ground_truth['missing_gt_reference_occurrences']} missing-reference
 occurrence(s) across {ground_truth['conditions_with_warnings']}
 condition-language slice(s). Every non-empty query is retained.
+The data-ID audit found {data_ids['empty_data_id_rows']} empty ID row(s) and
+{data_ids['duplicate_data_id_extra_rows']} extra row(s) carrying duplicate IDs
+across {data_ids['slices_with_warnings']} domain-language slice(s). IDs are
+linkage metadata, so every non-empty data text is retained without
+deduplication.
 
 | Condition | Languages | Strongest pair | Spearman vs FLORES |
 |---|---:|---|---:|
@@ -951,6 +1019,8 @@ def _result_payload(
     }
     if "ground_truth_summary" in audit:
         result["ground_truth_summary"] = audit["ground_truth_summary"]
+    if "data_id_summary" in audit:
+        result["data_id_summary"] = audit["data_id_summary"]
     (output_dir / "run_summary.json").write_text(
         json.dumps(result, indent=2) + "\n",
         encoding="utf-8",

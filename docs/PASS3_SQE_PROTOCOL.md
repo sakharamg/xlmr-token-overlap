@@ -61,8 +61,10 @@ set.
 
 Empty `gt_ids` cells and references absent from `data.id` are recorded as
 metadata warnings in `corpus_manifest.json`; they do not remove or block valid
-query text. Use `--strict-ground-truth` when a separate integrity-audit run
-should fail on either anomaly.
+query text. Empty and duplicate `data.id` values are likewise recorded without
+deduplicating or dropping any valid data text. Use `--strict-integrity` when a
+separate integrity-audit run should fail on any of these linkage anomalies
+(`--strict-ground-truth` remains an alias).
 
 ### Frozen audited coverage
 

@@ -91,11 +91,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="Accept locale/variant coverage different from the audited snapshot.",
     )
     all_sqe.add_argument(
+        "--strict-integrity",
         "--strict-ground-truth",
+        dest="strict_ground_truth",
         action="store_true",
         help=(
-            "Fail on empty gt_ids or references missing from data.id; "
-            "default records warnings and analyzes every non-empty query."
+            "Fail on duplicate/empty data IDs, empty gt_ids, or unresolved "
+            "references; default records warnings and retains all valid text."
         ),
     )
 

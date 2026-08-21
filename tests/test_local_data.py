@@ -112,6 +112,7 @@ class SqeLocalLoaderTests(unittest.TestCase):
         root: Path,
         label: str,
         gt_ids='["d1"]',
+        data_rows=None,
     ) -> None:
         canonical = (
             root
@@ -124,7 +125,7 @@ class SqeLocalLoaderTests(unittest.TestCase):
             canonical / "data.xlsx",
             "data",
             ("id", "text", "remark"),
-            (("d1", "D" * 10_000, "metadata"),),
+            data_rows or (("d1", "D" * 10_000, "metadata"),),
         )
         _write_xlsx(
             canonical / "tc.xlsx",
@@ -212,6 +213,57 @@ class SqeLocalLoaderTests(unittest.TestCase):
                 integrity["missing_gt_reference_occurrences"],
                 1,
             )
+
+    def test_duplicate_and_empty_data_ids_do_not_drop_text(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._locale(
+                root,
+                "KO",
+                data_rows=(
+                    (None, "empty ID text", "metadata"),
+                    ("d1", "first duplicate-ID text", "metadata"),
+                    ("d1", "second duplicate-ID text", "metadata"),
+                ),
+            )
+            collection, audit, _ = collect_sqe_records(
+                root,
+                domains=("settings",),
+                allow_coverage_drift=True,
+            )
+            data_records = [
+                record
+                for record in collection.records
+                if record.split.endswith("|data")
+            ]
+            integrity = audit["data_id_integrity"][
+                "settings:kor_Hang"
+            ]
+            self.assertEqual(len(data_records), 3)
+            self.assertEqual(len({record.example_id for record in data_records}), 3)
+            self.assertEqual(integrity["status"], "warning")
+            self.assertEqual(integrity["empty_data_id_rows"], 1)
+            self.assertEqual(integrity["duplicate_data_id_values"], 1)
+            self.assertEqual(integrity["duplicate_data_id_extra_rows"], 1)
+
+    def test_strict_integrity_rejects_duplicate_data_ids(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._locale(
+                root,
+                "KO",
+                data_rows=(
+                    ("d1", "first text", "metadata"),
+                    ("d1", "second text", "metadata"),
+                ),
+            )
+            with self.assertRaisesRegex(ValueError, "data-ID integrity"):
+                collect_sqe_records(
+                    root,
+                    domains=("settings",),
+                    allow_coverage_drift=True,
+                    strict_ground_truth=True,
+                )
 
     def test_gt_ids_and_locale_formats(self):
         self.assertEqual(parse_gt_ids('["d1", "d2"]'), ["d1", "d2"])

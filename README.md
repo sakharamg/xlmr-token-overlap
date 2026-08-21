@@ -210,11 +210,12 @@ SQE is analyzed separately from Pass 3 because its domain coverage is uneven.
 Within each condition, every `data.text` and test-case `query` cell is encoded
 in full. `gt_ids` validates query-to-data linkage and `remark` remains
 metadata. Empty or unresolved ground-truth entries are reported as warnings
-without dropping valid query text; `--strict-ground-truth` makes them fatal
-when desired. There is intentionally no pooled SQE-overall condition because
-that would confound language with domain coverage. `settings_standard` is the
-complete 24-language SQE comparison; partial conditions receive masked 24×24
-views.
+without dropping valid query text. Empty or duplicate data IDs are also
+reported without deduplicating text rows; `--strict-integrity` makes all such
+linkage anomalies fatal when desired. There is intentionally no pooled
+SQE-overall condition because that would confound language with domain
+coverage. `settings_standard` is the complete 24-language SQE comparison;
+partial conditions receive masked 24×24 views.
 
 ```bash
 xlmr-token-overlap all-sqe \
