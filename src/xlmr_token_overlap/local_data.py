@@ -511,6 +511,7 @@ def collect_sqe_records(
     *,
     domains: Sequence[str] | None = None,
     allow_coverage_drift: bool = False,
+    strict_ground_truth: bool = False,
 ) -> tuple[CorpusCollection, dict[str, Any], dict[str, set[str]]]:
     """Load every SQE data text and test-case query as independent conditions."""
 
@@ -591,19 +592,41 @@ def collect_sqe_records(
                 )
 
                 missing_references: set[str] = set()
-                empty_ground_truth_rows = []
+                missing_reference_occurrences = 0
+                rows_with_missing_references = 0
+                empty_ground_truth_rows = 0
                 parsed_reference_count = 0
-                for row_index, value in test_cases["gt_ids"].items():
+                for value in test_cases["gt_ids"]:
                     references = parse_gt_ids(value)
                     if not references:
-                        empty_ground_truth_rows.append(str(row_index))
+                        empty_ground_truth_rows += 1
                     parsed_reference_count += len(references)
-                    missing_references.update(set(references) - data_id_set)
-                if empty_ground_truth_rows or missing_references:
+                    row_missing = [
+                        reference
+                        for reference in references
+                        if reference not in data_id_set
+                    ]
+                    if row_missing:
+                        rows_with_missing_references += 1
+                        missing_reference_occurrences += len(row_missing)
+                        missing_references.update(row_missing)
+                has_ground_truth_warning = bool(
+                    empty_ground_truth_rows or missing_reference_occurrences
+                )
+                if strict_ground_truth and has_ground_truth_warning:
                     raise ValueError(
                         f"SQE ground-truth integrity failure in {tc_path}: "
-                        f"empty_gt_rows={empty_ground_truth_rows[:10]}, "
-                        f"missing_ids={sorted(missing_references)[:10]}"
+                        f"empty_gt_rows={empty_ground_truth_rows}, "
+                        f"missing_reference_occurrences="
+                        f"{missing_reference_occurrences}"
+                    )
+                if has_ground_truth_warning:
+                    print(
+                        "[warning] SQE ground-truth metadata anomaly in "
+                        f"{tc_path}: empty_gt_rows={empty_ground_truth_rows}, "
+                        "missing_reference_occurrences="
+                        f"{missing_reference_occurrences}; retaining every "
+                        "non-empty query for tokenizer analysis"
                     )
 
                 source_data = (
@@ -641,12 +664,21 @@ def collect_sqe_records(
                     )
                 condition_coverage[condition].add(language_code)
                 integrity[f"{condition}:{language_code}"] = {
+                    "status": (
+                        "warning" if has_ground_truth_warning else "passed"
+                    ),
                     "data_rows": len(data),
                     "query_rows": len(test_cases),
                     "data_ids": len(data_id_set),
                     "parsed_gt_references": parsed_reference_count,
-                    "missing_gt_references": 0,
-                    "empty_gt_rows": 0,
+                    "empty_gt_rows": empty_ground_truth_rows,
+                    "rows_with_missing_gt_references": (
+                        rows_with_missing_references
+                    ),
+                    "missing_gt_reference_occurrences": (
+                        missing_reference_occurrences
+                    ),
+                    "unique_missing_gt_references": len(missing_references),
                 }
             if not found_variant:
                 raise FileNotFoundError(
@@ -675,6 +707,27 @@ def collect_sqe_records(
         condition: set(codes)
         for condition, codes in condition_coverage.items()
     }
+    warning_conditions = sorted(
+        key
+        for key, details in integrity.items()
+        if details["status"] == "warning"
+    )
+    ground_truth_summary = {
+        "strict_mode": strict_ground_truth,
+        "conditions_with_warnings": len(warning_conditions),
+        "warning_conditions": warning_conditions,
+        "empty_gt_rows": sum(
+            details["empty_gt_rows"] for details in integrity.values()
+        ),
+        "rows_with_missing_gt_references": sum(
+            details["rows_with_missing_gt_references"]
+            for details in integrity.values()
+        ),
+        "missing_gt_reference_occurrences": sum(
+            details["missing_gt_reference_occurrences"]
+            for details in integrity.values()
+        ),
+    }
     audit = {
         "dataset": "SQE canonical workbooks",
         "analysis_scope": "all non-empty data.text and test-case query cells",
@@ -696,6 +749,7 @@ def collect_sqe_records(
             domain: sorted(variants)
             for domain, variants in sorted(observed_variants.items())
         },
+        "ground_truth_summary": ground_truth_summary,
         "ground_truth_integrity": integrity,
         "source_files": source_files,
     }
@@ -842,11 +896,17 @@ def _write_sqe_report(
             f"| {condition} | {languages} | {_strongest_pair(path)} | "
             f"{spearman_text} |"
         )
+    ground_truth = audit["ground_truth_summary"]
     text = f"""# SQE tokenizer-overlap suite
 
 Every non-empty data.text and test-case query cell is analyzed in full. There
 is no character limit, tokenizer truncation, row sampling, or token-budget
 sampling. The gt_ids field is used only to validate query-to-data linkage.
+Ground-truth metadata warnings are non-blocking for tokenizer analysis: the
+audit found {ground_truth['empty_gt_rows']} empty gt_ids row(s) and
+{ground_truth['missing_gt_reference_occurrences']} missing-reference
+occurrence(s) across {ground_truth['conditions_with_warnings']}
+condition-language slice(s). Every non-empty query is retained.
 
 | Condition | Languages | Strongest pair | Spearman vs FLORES |
 |---|---:|---|---:|
@@ -889,6 +949,8 @@ def _result_payload(
             "checks_passed": validation["checks_passed"],
         },
     }
+    if "ground_truth_summary" in audit:
+        result["ground_truth_summary"] = audit["ground_truth_summary"]
     (output_dir / "run_summary.json").write_text(
         json.dumps(result, indent=2) + "\n",
         encoding="utf-8",
@@ -933,11 +995,13 @@ def run_sqe(
     flores_dir: Path,
     domains: Sequence[str] | None = None,
     allow_coverage_drift: bool = False,
+    strict_ground_truth: bool = False,
 ) -> dict[str, Any]:
     collection, audit, expected = collect_sqe_records(
         datasets_root,
         domains=domains,
         allow_coverage_drift=allow_coverage_drift,
+        strict_ground_truth=strict_ground_truth,
     )
     audit["dataset_root"] = portable_path(datasets_root)
     destinations, cross, validation = _run_suite(

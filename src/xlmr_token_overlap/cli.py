@@ -90,6 +90,14 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Accept locale/variant coverage different from the audited snapshot.",
     )
+    all_sqe.add_argument(
+        "--strict-ground-truth",
+        action="store_true",
+        help=(
+            "Fail on empty gt_ids or references missing from data.id; "
+            "default records warnings and analyzes every non-empty query."
+        ),
+    )
 
     run_jsonl = subparsers.add_parser(
         "run-jsonl", help="Analyze Pass-2/3 interchange rows by independent condition"
@@ -155,6 +163,7 @@ def main(argv: list[str] | None = None) -> None:
                 flores_dir=args.flores_dir,
                 domains=args.domains,
                 allow_coverage_drift=args.allow_coverage_drift,
+                strict_ground_truth=args.strict_ground_truth,
             )
         print(json.dumps(result, indent=2))
     elif args.command == "run-jsonl":

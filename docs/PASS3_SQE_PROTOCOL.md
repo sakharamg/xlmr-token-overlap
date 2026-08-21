@@ -59,6 +59,11 @@ Each domain and query variant is an independent condition. Data text is
 included once within each condition alongside that variant's complete query
 set.
 
+Empty `gt_ids` cells and references absent from `data.id` are recorded as
+metadata warnings in `corpus_manifest.json`; they do not remove or block valid
+query text. Use `--strict-ground-truth` when a separate integrity-audit run
+should fail on either anomaly.
+
 ### Frozen audited coverage
 
 | Domain | Languages | Variants |

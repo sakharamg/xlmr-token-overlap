@@ -107,7 +107,12 @@ class Pass3LocalLoaderTests(unittest.TestCase):
 
 
 class SqeLocalLoaderTests(unittest.TestCase):
-    def _locale(self, root: Path, label: str, missing_gt: bool = False) -> None:
+    def _locale(
+        self,
+        root: Path,
+        label: str,
+        gt_ids='["d1"]',
+    ) -> None:
         canonical = (
             root
             / "sqe"
@@ -121,7 +126,6 @@ class SqeLocalLoaderTests(unittest.TestCase):
             ("id", "text", "remark"),
             (("d1", "D" * 10_000, "metadata"),),
         )
-        gt_ids = '["missing"]' if missing_gt else '["d1"]'
         _write_xlsx(
             canonical / "tc.xlsx",
             "tc",
@@ -154,16 +158,60 @@ class SqeLocalLoaderTests(unittest.TestCase):
             self.assertIsNone(audit["character_limit"])
             self.assertFalse(audit["tokenizer_truncation"])
 
-    def test_missing_ground_truth_reference_is_rejected(self):
+    def test_empty_ground_truth_warns_without_dropping_query(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            self._locale(root, "KO", missing_gt=True)
+            self._locale(root, "KO", gt_ids=None)
+            collection, audit, _ = collect_sqe_records(
+                root,
+                domains=("settings",),
+                allow_coverage_drift=True,
+            )
+            queries = [
+                record for record in collection.records
+                if record.split.endswith("|query")
+            ]
+            integrity = audit["ground_truth_integrity"][
+                "settings_standard:kor_Hang"
+            ]
+            self.assertEqual(len(queries), 1)
+            self.assertEqual(integrity["status"], "warning")
+            self.assertEqual(integrity["empty_gt_rows"], 1)
+            self.assertEqual(
+                audit["ground_truth_summary"]["conditions_with_warnings"],
+                1,
+            )
+
+    def test_strict_ground_truth_rejects_missing_reference(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._locale(root, "KO", gt_ids='["missing"]')
             with self.assertRaisesRegex(ValueError, "ground-truth integrity"):
                 collect_sqe_records(
                     root,
                     domains=("settings",),
                     allow_coverage_drift=True,
+                    strict_ground_truth=True,
                 )
+
+    def test_missing_reference_warns_by_default(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._locale(root, "KO", gt_ids='["missing"]')
+            collection, audit, _ = collect_sqe_records(
+                root,
+                domains=("settings",),
+                allow_coverage_drift=True,
+            )
+            integrity = audit["ground_truth_integrity"][
+                "settings_standard:kor_Hang"
+            ]
+            self.assertEqual(len(collection.records), 2)
+            self.assertEqual(integrity["status"], "warning")
+            self.assertEqual(
+                integrity["missing_gt_reference_occurrences"],
+                1,
+            )
 
     def test_gt_ids_and_locale_formats(self):
         self.assertEqual(parse_gt_ids('["d1", "d2"]'), ["d1", "d2"])
