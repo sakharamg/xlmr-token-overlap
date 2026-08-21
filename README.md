@@ -194,6 +194,38 @@ Hindi, Japanese, Korean, and Thai have different row counts and no stable ID
 column exists. This is retained as a full-corpus distributional condition,
 rather than silently dropping or fabricating rows.
 
+### Pass 3 results
+
+<!-- BEGIN GENERATED: PASS3_RESULTS -->
+_Result values are intentionally left as placeholders until the private run is
+copied into this checkout. Run `python scripts/fill_readme_results.py` to fill
+this block from `results/pass3` without pasting any result data into chat._
+
+| Condition | Language coverage | Strongest pair | Type IoU | Spearman vs. FLORES | Mean IoU Δ vs. FLORES |
+|---|---:|---|---:|---:|---:|
+| Overall | TBD | TBD | TBD | TBD | TBD |
+| STS | TBD | TBD | TBD | TBD | TBD |
+| Retrieval | TBD | TBD | TBD | TBD | TBD |
+<!-- END GENERATED: PASS3_RESULTS -->
+
+Spearman compares the rank ordering of aligned language-pair IoUs with FLORES;
+it is not a task-performance score. Mean IoU Δ is the condition's mean
+off-diagonal IoU minus the aligned FLORES mean, in percentage points.
+
+### Pass 3 overall IoU heatmap
+
+![Pass 3 overall XLM-R token-type IoU](results/pass3/overall/heatmaps_all_languages/type_iou_upper.png)
+
+### Pass 3 task-wise IoU heatmaps
+
+| STS | Belebele retrieval |
+|---|---|
+| ![Pass 3 STS XLM-R token-type IoU](results/pass3/sts/heatmaps_all_languages/type_iou_upper.png) | ![Pass 3 Belebele retrieval XLM-R token-type IoU](results/pass3/retrieval/heatmaps_all_languages/type_iou_upper.png) |
+
+The image links are pre-wired to the runner's native paths. Follow the
+[`private-results handoff`](docs/PRIVATE_RESULTS_HANDOFF.md) to place the seven
+Pass 3/SQE heatmaps and populate both result tables locally.
+
 ## SQE
 
 SQE is analyzed separately from Pass 3 because its domain coverage is uneven.
@@ -227,12 +259,45 @@ xlmr-token-overlap all-sqe \
   --flores-dir results/flores
 ```
 
+### SQE results
+
+<!-- BEGIN GENERATED: SQE_RESULTS -->
+_Result values are intentionally left as placeholders until the private run is
+copied into this checkout. Run `python scripts/fill_readme_results.py` to fill
+this block from `results/sqe` without pasting any result data into chat._
+
+| Condition | Language coverage | Strongest pair | Type IoU | Spearman vs. FLORES | Mean IoU Δ vs. FLORES |
+|---|---:|---|---:|---:|---:|
+| Settings standard | TBD | TBD | TBD | TBD | TBD |
+| Notes standard | TBD | TBD | TBD | TBD | TBD |
+| Notes contextual | TBD | TBD | TBD | TBD | TBD |
+| Notes contextual-drop-time | TBD | TBD | TBD | TBD | TBD |
+<!-- END GENERATED: SQE_RESULTS -->
+
+### SQE 24-language IoU heatmap
+
+`settings_standard` is the only complete 24-language SQE condition and is the
+primary cross-language SQE view.
+
+![SQE settings standard XLM-R token-type IoU](results/sqe/settings_standard/heatmaps_all_languages/type_iou_upper.png)
+
+### SQE Notes variant IoU heatmaps
+
+Blank cells are expected for the eight languages outside Notes coverage.
+
+| Standard | Contextual |
+|---|---|
+| ![SQE Notes standard XLM-R token-type IoU](results/sqe/notes_standard/heatmaps_all_languages/type_iou_upper.png) | ![SQE Notes contextual XLM-R token-type IoU](results/sqe/notes_contextual/heatmaps_all_languages/type_iou_upper.png) |
+| **Contextual drop time** | |
+| ![SQE Notes contextual-drop-time XLM-R token-type IoU](results/sqe/notes_contextual_drop_time/heatmaps_all_languages/type_iou_upper.png) | |
+
 The default runs every domain and variant, including full token diagnostics for
-Korean-only conditions. See
+Korean-only conditions. Those single-language conditions have no off-diagonal
+pair or meaningful Spearman comparison, so their diagnostics remain in the SQE
+result report instead of adding twelve nearly empty README heatmaps. See
 [`docs/PASS3_SQE_PROTOCOL.md`](docs/PASS3_SQE_PROTOCOL.md) for the frozen input
-contract, full-text policy, coverage rules, and outputs. Results and README
-heatmaps can be checked in after the private-data run; raw source text is never
-committed.
+contract, full-text policy, coverage rules, and outputs. Raw source text is
+never committed.
 
 ## Generic Pass 2/3 interface
 
