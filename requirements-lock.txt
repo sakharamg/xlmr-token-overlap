@@ -1,6 +1,7 @@
-# Exact environment used for the checked-in FLORES run.
+# Pinned runtime; NumPy is selected by the supported Python version.
 matplotlib==3.10.5
-numpy==2.3.2
+numpy==2.2.6; python_version < "3.11"
+numpy==2.3.2; python_version >= "3.11"
 openpyxl==3.1.5
 pandas==2.3.2
 pyarrow==21.0.0

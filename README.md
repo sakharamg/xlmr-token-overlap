@@ -37,6 +37,9 @@ XLM-R behavior. Encoding has no wrapper tokens, truncation, or padding.
 
 ## Reproduce the checked-in FLORES pass
 
+Python 3.10 is supported. The lock file selects NumPy 2.2.6 on Python 3.10
+and NumPy 2.3.2 on Python 3.11 or newer.
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
