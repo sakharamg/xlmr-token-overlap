@@ -295,6 +295,10 @@ def _id_key(value: Any) -> str:
     return str(value).strip()
 
 
+def _is_nonempty_text(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
 def parse_gt_ids(value: Any) -> list[str]:
     """Parse SQE gt_ids cells without assuming one serialization format."""
 
@@ -528,6 +532,7 @@ def collect_sqe_records(
     source_files = []
     integrity: dict[str, Any] = {}
     data_id_integrity: dict[str, Any] = {}
+    text_integrity: dict[str, Any] = {}
     condition_coverage: defaultdict[str, set[str]] = defaultdict(set)
     observed_domain_coverage: defaultdict[str, set[str]] = defaultdict(set)
     observed_variants: defaultdict[str, set[str]] = defaultdict(set)
@@ -609,6 +614,28 @@ def collect_sqe_records(
                 "duplicate_data_id_values": duplicate_data_id_values,
                 "duplicate_data_id_extra_rows": duplicate_data_id_extra_rows,
             }
+            valid_data_text_mask = data["text"].map(_is_nonempty_text)
+            invalid_data_text_rows = int((~valid_data_text_mask).sum())
+            if strict_ground_truth and invalid_data_text_rows:
+                raise ValueError(
+                    f"SQE text integrity failure in {data_path}: "
+                    "empty_or_nontext_data_rows="
+                    f"{invalid_data_text_rows}"
+                )
+            if invalid_data_text_rows:
+                print(
+                    "[warning] SQE text anomaly in "
+                    f"{data_path}: empty_or_nontext_data_rows="
+                    f"{invalid_data_text_rows}; skipping only those cells "
+                    "because they contain no tokenizable text"
+                )
+            text_integrity[f"{domain}:{language_code}:data"] = {
+                "status": "warning" if invalid_data_text_rows else "passed",
+                "role": "data",
+                "source_rows": len(data),
+                "analyzed_text_rows": int(valid_data_text_mask.sum()),
+                "skipped_empty_or_nontext_rows": invalid_data_text_rows,
+            }
 
             found_variant = False
             for filename, variant in SQE_VARIANTS.items():
@@ -665,11 +692,44 @@ def collect_sqe_records(
                         f"{missing_reference_occurrences}; retaining every "
                         "non-empty query for tokenizer analysis"
                     )
+                valid_query_text_mask = test_cases["query"].map(
+                    _is_nonempty_text
+                )
+                invalid_query_text_rows = int(
+                    (~valid_query_text_mask).sum()
+                )
+                if strict_ground_truth and invalid_query_text_rows:
+                    raise ValueError(
+                        f"SQE text integrity failure in {tc_path}: "
+                        "empty_or_nontext_query_rows="
+                        f"{invalid_query_text_rows}"
+                    )
+                if invalid_query_text_rows:
+                    print(
+                        "[warning] SQE text anomaly in "
+                        f"{tc_path}: empty_or_nontext_query_rows="
+                        f"{invalid_query_text_rows}; skipping only those "
+                        "cells because they contain no tokenizable text"
+                    )
+                text_integrity[
+                    f"{condition}:{language_code}:query"
+                ] = {
+                    "status": (
+                        "warning" if invalid_query_text_rows else "passed"
+                    ),
+                    "role": "query",
+                    "source_rows": len(test_cases),
+                    "analyzed_text_rows": int(valid_query_text_mask.sum()),
+                    "skipped_empty_or_nontext_rows": (
+                        invalid_query_text_rows
+                    ),
+                }
 
                 source_data = (
                     f"sqe/{domain_dir.name}/{locale_dir.name}/canonical/data.xlsx"
                 )
-                for row_index, row in data.iterrows():
+                records_before = len(collection.records)
+                for row_index, row in data.loc[valid_data_text_mask].iterrows():
                     collection.add(
                         condition=condition,
                         language_code=language_code,
@@ -687,7 +747,9 @@ def collect_sqe_records(
                 source_tc = (
                     f"sqe/{domain_dir.name}/{locale_dir.name}/canonical/{filename}"
                 )
-                for row_index, row in test_cases.iterrows():
+                for row_index, row in test_cases.loc[
+                    valid_query_text_mask
+                ].iterrows():
                     collection.add(
                         condition=condition,
                         language_code=language_code,
@@ -700,6 +762,11 @@ def collect_sqe_records(
                         role="query",
                         source=source_tc,
                     )
+                if len(collection.records) == records_before:
+                    raise ValueError(
+                        f"SQE condition {condition}/{language_code} has no "
+                        "non-empty data or query text"
+                    )
                 condition_coverage[condition].add(language_code)
                 integrity[f"{condition}:{language_code}"] = {
                     "status": (
@@ -707,6 +774,9 @@ def collect_sqe_records(
                     ),
                     "data_rows": len(data),
                     "query_rows": len(test_cases),
+                    "analyzed_query_rows": int(
+                        valid_query_text_mask.sum()
+                    ),
                     "data_ids": len(data_id_set),
                     "parsed_gt_references": parsed_reference_count,
                     "empty_gt_rows": empty_ground_truth_rows,
@@ -788,6 +858,26 @@ def collect_sqe_records(
             for details in data_id_integrity.values()
         ),
     }
+    text_warning_slices = sorted(
+        key
+        for key, details in text_integrity.items()
+        if details["status"] == "warning"
+    )
+    text_summary = {
+        "strict_mode": strict_ground_truth,
+        "slices_with_warnings": len(text_warning_slices),
+        "warning_slices": text_warning_slices,
+        "skipped_empty_or_nontext_data_rows": sum(
+            details["skipped_empty_or_nontext_rows"]
+            for details in text_integrity.values()
+            if details["role"] == "data"
+        ),
+        "skipped_empty_or_nontext_query_rows": sum(
+            details["skipped_empty_or_nontext_rows"]
+            for details in text_integrity.values()
+            if details["role"] == "query"
+        ),
+    }
     audit = {
         "dataset": "SQE canonical workbooks",
         "analysis_scope": "all non-empty data.text and test-case query cells",
@@ -811,6 +901,8 @@ def collect_sqe_records(
         },
         "data_id_summary": data_id_summary,
         "data_id_integrity": data_id_integrity,
+        "text_summary": text_summary,
+        "text_integrity": text_integrity,
         "ground_truth_summary": ground_truth_summary,
         "ground_truth_integrity": integrity,
         "source_files": source_files,
@@ -960,6 +1052,7 @@ def _write_sqe_report(
         )
     ground_truth = audit["ground_truth_summary"]
     data_ids = audit["data_id_summary"]
+    text_cells = audit["text_summary"]
     text = f"""# SQE tokenizer-overlap suite
 
 Every non-empty data.text and test-case query cell is analyzed in full. There
@@ -975,6 +1068,11 @@ The data-ID audit found {data_ids['empty_data_id_rows']} empty ID row(s) and
 across {data_ids['slices_with_warnings']} domain-language slice(s). IDs are
 linkage metadata, so every non-empty data text is retained without
 deduplication.
+The text audit skipped {text_cells['skipped_empty_or_nontext_data_rows']} blank
+or non-text data cell(s) and
+{text_cells['skipped_empty_or_nontext_query_rows']} blank or non-text query
+cell(s). Such cells contain no tokenizable content; every other text is
+analyzed unchanged and in full.
 
 | Condition | Languages | Strongest pair | Spearman vs FLORES |
 |---|---:|---|---:|
@@ -1021,6 +1119,8 @@ def _result_payload(
         result["ground_truth_summary"] = audit["ground_truth_summary"]
     if "data_id_summary" in audit:
         result["data_id_summary"] = audit["data_id_summary"]
+    if "text_summary" in audit:
+        result["text_summary"] = audit["text_summary"]
     (output_dir / "run_summary.json").write_text(
         json.dumps(result, indent=2) + "\n",
         encoding="utf-8",

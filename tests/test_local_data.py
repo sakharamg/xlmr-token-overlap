@@ -113,6 +113,7 @@ class SqeLocalLoaderTests(unittest.TestCase):
         label: str,
         gt_ids='["d1"]',
         data_rows=None,
+        query_text=None,
     ) -> None:
         canonical = (
             root
@@ -131,7 +132,7 @@ class SqeLocalLoaderTests(unittest.TestCase):
             canonical / "tc.xlsx",
             "tc",
             ("query", "gt_ids"),
-            (("Q" * 12_000, gt_ids),),
+            ((("Q" * 12_000) if query_text is None else query_text, gt_ids),),
         )
 
     def test_sqe_uses_full_data_and_query_cells(self):
@@ -258,6 +259,51 @@ class SqeLocalLoaderTests(unittest.TestCase):
                 ),
             )
             with self.assertRaisesRegex(ValueError, "data-ID integrity"):
+                collect_sqe_records(
+                    root,
+                    domains=("settings",),
+                    allow_coverage_drift=True,
+                    strict_ground_truth=True,
+                )
+
+    def test_blank_text_cells_are_audited_and_skipped(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._locale(
+                root,
+                "KO",
+                gt_ids='["d2"]',
+                query_text="   ",
+                data_rows=(
+                    ("d1", None, "metadata"),
+                    ("d2", "valid data text", "metadata"),
+                ),
+            )
+            collection, audit, _ = collect_sqe_records(
+                root,
+                domains=("settings",),
+                allow_coverage_drift=True,
+            )
+            self.assertEqual(len(collection.records), 1)
+            self.assertEqual(collection.records[0].text, "valid data text")
+            self.assertEqual(
+                audit["text_summary"][
+                    "skipped_empty_or_nontext_data_rows"
+                ],
+                1,
+            )
+            self.assertEqual(
+                audit["text_summary"][
+                    "skipped_empty_or_nontext_query_rows"
+                ],
+                1,
+            )
+
+    def test_strict_integrity_rejects_blank_query(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self._locale(root, "KO", query_text="   ")
+            with self.assertRaisesRegex(ValueError, "text integrity"):
                 collect_sqe_records(
                     root,
                     domains=("settings",),

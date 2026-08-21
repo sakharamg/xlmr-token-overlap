@@ -66,6 +66,11 @@ deduplicating or dropping any valid data text. Use `--strict-integrity` when a
 separate integrity-audit run should fail on any of these linkage anomalies
 (`--strict-ground-truth` remains an alias).
 
+Blank, whitespace-only, and non-string text cells contain no tokenizable
+content. They are counted in the manifest and skipped; all other text cells
+are encoded unchanged and in full. Strict integrity mode also fails on these
+otherwise non-blocking text warnings.
+
 ### Frozen audited coverage
 
 | Domain | Languages | Variants |

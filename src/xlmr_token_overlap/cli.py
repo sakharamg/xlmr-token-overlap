@@ -97,7 +97,8 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help=(
             "Fail on duplicate/empty data IDs, empty gt_ids, or unresolved "
-            "references; default records warnings and retains all valid text."
+            "references, and on blank/non-text cells; default records "
+            "warnings and retains all tokenizable text."
         ),
     )
 

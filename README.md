@@ -212,10 +212,12 @@ in full. `gt_ids` validates query-to-data linkage and `remark` remains
 metadata. Empty or unresolved ground-truth entries are reported as warnings
 without dropping valid query text. Empty or duplicate data IDs are also
 reported without deduplicating text rows; `--strict-integrity` makes all such
-linkage anomalies fatal when desired. There is intentionally no pooled
-SQE-overall condition because that would confound language with domain
-coverage. `settings_standard` is the complete 24-language SQE comparison;
-partial conditions receive masked 24×24 views.
+linkage anomalies fatal when desired. Blank or non-text cells are audited and
+skipped because they contain no tokenizable content; every other cell is
+analyzed unchanged and in full. There is intentionally no pooled SQE-overall
+condition because that would confound language with domain coverage.
+`settings_standard` is the complete 24-language SQE comparison; partial
+conditions receive masked 24×24 views.
 
 ```bash
 xlmr-token-overlap all-sqe \
